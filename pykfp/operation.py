@@ -62,7 +62,7 @@ class Operation:
         import_compound = "from kfp.dsl import *\nfrom typing import *"
 
         decorator_str = self.create_decorator(self.environment_params)
-        decorator_str = decorator_str.replace(" ", "")
+        decorator_str = decorator_str.replace(" = ", "=")
 
         function_str = self.create_function()
 
