@@ -1,13 +1,13 @@
 import dataclasses
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, List, Tuple
 
 
 @dataclasses.dataclass(unsafe_hash=True)
 class EnvironmentParams:
     base_image: str = None
     target_image: str = None
-    packages_to_install: list[str] = dataclasses.field(default_factory=lambda: None)
-    pip_index_urls: list[str] = dataclasses.field(default_factory=lambda: None)
+    packages_to_install: List[str] = dataclasses.field(default_factory=lambda: None)
+    pip_index_urls: List[str] = dataclasses.field(default_factory=lambda: None)
     output_component_file: str = None
     install_kfp_package: bool = None
     kfp_package_path: str = None
