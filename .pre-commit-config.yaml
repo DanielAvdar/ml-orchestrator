@@ -34,6 +34,12 @@ repos:
         language: system
         types: [ python ]
         args: [ "-rn", "-sn", "--rcfile=.pylintrc", "--fail-on=I" ]
+      - id: mypy
+        name: mypy
+        entry: mypy
+        language: python
+        types: [ python ]
+#        args: [ "--config-file", "mypy.ini" ]
 
 
 
