@@ -6,9 +6,7 @@ def get_param_meta_data(field: dataclasses.Field, value: Any) -> Tuple[str, type
     name = field.name
     field_type = field.type
     try:
-        field_value = (
-            value if value is not None else field.default or field.default_factory()
-        )
+        field_value = value if value is not None else field.default_factory()()
     except TypeError:
         field_value = None
     return name, field_type, field_value
