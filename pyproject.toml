@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "mljar-kfp"
+version = "0.1.0"
+description = "right out of the box mljar pipeline."
+authors = ["DanielAvdar <66269169+DanielAvdar@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [
+    { include = "pykfp", from = "." },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.13"
+kfp = "2.7.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+hypothesis = "^6.23.3"
+pre-commit = "^2.20.0"
+pytest-cov = "^4.0.0"
+pylint = "^2.14.5"
+mypy = "^0.991"
+pylint-junit = "^0.3.2"
+pylint-pytest = "^0.3.0"
+
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
