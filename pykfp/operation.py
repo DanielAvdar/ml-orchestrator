@@ -43,14 +43,14 @@ class Operation:
         return func_definition
 
     @staticmethod
-    def get_func_params(comp_vars, with_typing=True) -> List[str]:
+    def get_func_params(comp_vars: dict, with_typing: bool = True) -> List[str]:
         return [
             get_param_meta_data_str(*get_param_meta_data(k, v), with_typing=with_typing)
             for k, v in comp_vars.items()
         ]
 
     @staticmethod
-    def get_comp_params(comp_vars) -> List[str]:
+    def get_comp_params(comp_vars: dict) -> List[str]:
         return [f"{k.name}={k.name}" for k, v in comp_vars.items()]
 
     @staticmethod
