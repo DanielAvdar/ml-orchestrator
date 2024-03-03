@@ -4,6 +4,7 @@ import os
 from pykfp.env_params import EnvironmentParams
 from pykfp.meta_comp import MetaComponent
 from pykfp.operation import Operation
+from tests.dummy_components import ComponentTestB
 
 params = dict(
     base_image="base_image",
@@ -28,7 +29,7 @@ class ComponentTestA(MetaComponentTest):
 
 
 def test_fun_op():
-    component1 = ComponentTestA()
+    component1 = ComponentTestB()
     op = Operation(
         kfp_func_name="test_op",
         component=component1,
@@ -50,7 +51,9 @@ def test_fun_op():
     assert "(" in str_func and ")" in str_func
     assert "\t" in str_func
     assert " " in str_func
-    assert "Dataset" not in str_func
+    assert "[Dataset]" in str_func
+    assert "Input" in str_func
+    assert "Output" in str_func
 
 
 def test_dec_op():
@@ -72,7 +75,7 @@ def test_dec_op():
 def test_write_to_file():
     op = Operation(
         kfp_func_name="test_op",
-        component=ComponentTestA(),
+        component=ComponentTestB(),
         environment_params=EnvironmentParams(**params),
         compute_resources=None,
     )
