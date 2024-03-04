@@ -1,9 +1,9 @@
 import dataclasses
 import os
 
-from pykfp.env_params import EnvironmentParams
-from pykfp.meta_comp import MetaComponent
-from pykfp.operation import Operation
+from ml_orchestrator.env_params import EnvironmentParams
+from ml_orchestrator.meta_comp import MetaComponent
+from ml_orchestrator.operation import Operation
 from tests.dummy_components import ComponentTestB
 
 params = dict(

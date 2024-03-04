@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "mljar-kfp"
+name = "ml-orchestrator"
 version = "0.1.0"
 description = "right out of the box mljar pipeline."
 authors = ["DanielAvdar <66269169+DanielAvdar@users.noreply.github.com>"]
 license = "MIT"
 readme = "README.md"
 packages = [
-    { include = "pykfp", from = "." },
+    { include = "ml_orchestrator", from = "." },
 ]
 
 [tool.poetry.dependencies]

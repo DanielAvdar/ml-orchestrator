@@ -1,4 +1,4 @@
-from pykfp.artifacts import Dataset
+from ml_orchestrator.artifacts import Dataset
 from tests.dummy_components import ComponentTestA, ComponentTestB
 
 

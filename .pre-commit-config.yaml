@@ -1,4 +1,4 @@
-files: pykfp
+files: ml_orchestrator
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -26,7 +26,7 @@ repos:
         require_serial: true
         language: python
         types_or: [ cython, pyi, python ]
-        args: [ '--filter-files' ]
+
 
       - id: pylint
         name: pylint
@@ -39,7 +39,7 @@ repos:
         entry: mypy
         language: python
         types: [ python ]
-#        args: [ "--config-file", "mypy.ini" ]
+        args: [ "--config-file", "mypy.ini" ]
 
 
 

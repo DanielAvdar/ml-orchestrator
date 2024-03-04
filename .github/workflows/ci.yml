@@ -39,7 +39,7 @@ jobs:
         run: poetry install
 
       - name: Unit Tests with Coverage
-        run: poetry run pytest --cov=pykfp --cov-report=term-missing --cov-report=html
+        run: poetry run pytest --cov=ml_orchestrator --cov-report=term-missing --cov-report=html
 
       - name: Save coverage report as HTML
         if: matrix.python-version == '3.11'

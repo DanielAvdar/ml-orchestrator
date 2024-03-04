@@ -1,8 +1,8 @@
 import dataclasses
 from typing import List
 
-from pykfp.artifacts import Dataset, Input, Output
-from pykfp.meta_comp import MetaComponent
+from ml_orchestrator.artifacts import Dataset, Input, Output
+from ml_orchestrator.meta_comp import MetaComponent
 
 
 @dataclasses.dataclass(unsafe_hash=True)

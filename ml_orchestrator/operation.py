@@ -1,10 +1,13 @@
 import dataclasses
 from typing import List
 
-from pykfp.compute_params import ComputeResources
-from pykfp.env_params import EnvironmentParams
-from pykfp.meta_comp import MetaComponent
-from pykfp.utils.field_utils import get_param_meta_data, get_param_meta_data_str
+from ml_orchestrator.compute_params import ComputeResources
+from ml_orchestrator.env_params import EnvironmentParams
+from ml_orchestrator.meta_comp import MetaComponent
+from ml_orchestrator.utils.field_utils import (
+    get_param_meta_data,
+    get_param_meta_data_str,
+)
 
 
 @dataclasses.dataclass

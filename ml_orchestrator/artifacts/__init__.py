@@ -1,7 +1,7 @@
 import dataclasses
 from typing import Annotated, TypeVar
 
-from pykfp.artifacts.artifact import Artifact
+from ml_orchestrator.artifacts.artifact import Artifact
 
 _T = TypeVar("_T")
 Input = Annotated[_T, "input"]
