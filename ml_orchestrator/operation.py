@@ -73,5 +73,6 @@ class Operation:
         decorator_str = decorator_str.replace(" = ", "=")
         function_str = self.create_function()
         kfp_component_str = f"{decorator_str}\n{function_str}"
-        kfp_component_str = f"{IMPORT_COMPOUND}\n{kfp_component_str}"
-        return kfp_component_str
+        kfp_component_str = f"{IMPORT_COMPOUND}\n\n\n{kfp_component_str}"
+        kfp_component_str = kfp_component_str.replace("\t", "    ")
+        return kfp_component_str + "\n"
