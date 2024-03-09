@@ -68,7 +68,7 @@ def test_dec_op():
 
 def test_write_to_file():
     op = Operation(
-        kfp_func_name="test_op",
+        kfp_func_name="dummy_op",
         component=ComponentTestB(),
         environment_params=EnvironmentParams(**params),
         compute_resources=None,
