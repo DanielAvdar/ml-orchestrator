@@ -1,5 +1,4 @@
 import dataclasses
-import os
 
 from ml_orchestrator.env_params import EnvironmentParams
 from ml_orchestrator.meta_comp import MetaComponent
@@ -9,23 +8,18 @@ from tests.dummy_components import ComponentTestB
 params = dict(
     base_image="base_image",
     target_image="target_image",
-    packages_to_install=["packages_to_install", ''],
+    packages_to_install=["packages_to_install", ""],
     pip_index_urls=["pip_index_urls"],
     output_component_file="output_component_file",
     install_kfp_package=True,
     kfp_package_path="kfp_package_path",
 )
 
+
 @dataclasses.dataclass(unsafe_hash=True)
 class MetaComponentTest(MetaComponent):
     def execute(self) -> None:
         pass
-
-
-@dataclasses.dataclass(unsafe_hash=True)
-class ComponentTestA(MetaComponentTest):
-    param_1: int = 1
-    param_2: str = "1"
 
 
 def test_fun_op():

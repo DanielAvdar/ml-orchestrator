@@ -1,9 +1,12 @@
 import abc
 import dataclasses
+import importlib
 from typing import Any, Dict, Tuple
 
+from ml_orchestrator.env_params import EnvironmentParams
 
-@dataclasses.dataclass(unsafe_hash=True)
+
+@dataclasses.dataclass
 class MetaComponent(abc.ABC):
     @abc.abstractmethod
     def execute(
@@ -22,3 +25,10 @@ class MetaComponent(abc.ABC):
             ins_vars[field] = getattr(self, field.name)
 
         return ins_vars
+
+    @property
+    def env(self) -> EnvironmentParams:
+        ml_orchestrator_ver = importlib.metadata.version("ml-orchestrator")
+        return EnvironmentParams(
+            packages_to_install=[f"ml-orchestrator=={ml_orchestrator_ver}"],
+        )

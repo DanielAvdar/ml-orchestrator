@@ -24,4 +24,3 @@ class ComponentTestB(ComponentTestA):
     param_3: int = 2
     param_4: str = "2"
     param_list: List[int] = None
-

@@ -21,9 +21,7 @@ class Operation:
         comp_vars = self.component.comp_vars()
         comp_class = self.component.__class__
         func_scope = "(\n\t" + ",\n\t".join(self.get_func_params(comp_vars)) + "\n)"
-        comp_scope = (
-            "(\n\t\t" + ",\n\t\t".join(self.get_comp_params(comp_vars)) + "\n\t)"
-        )
+        comp_scope = "(\n\t\t" + ",\n\t\t".join(self.get_comp_params(comp_vars)) + "\n\t)"
         func_definition = f"def {self.kfp_func_name}{func_scope}:"
         import_compound = f"from {comp_class.__module__} import {comp_class.__name__}"
         comp_init = f"comp = {comp_class.__name__}{comp_scope}"
@@ -48,8 +46,7 @@ class Operation:
     @staticmethod
     def get_func_params(comp_vars: dict, with_typing: bool = True) -> List[str]:
         return [
-            get_param_meta_data_str(*get_param_meta_data(k, v), with_typing=with_typing)
-            for k, v in comp_vars.items()
+            get_param_meta_data_str(*get_param_meta_data(k, v), with_typing=with_typing) for k, v in comp_vars.items()
         ]
 
     @staticmethod
@@ -63,8 +60,8 @@ class Operation:
 
     def create_kfp_str(self) -> str:
         import_compound = "from kfp.dsl import *\nfrom typing import *"
-
-        decorator_str = self.create_decorator(self.environment_params)
+        environment_params = self.environment_params or self.component.env
+        decorator_str = self.create_decorator(environment_params)
         decorator_str = decorator_str.replace(" = ", "=")
 
         function_str = self.create_function()

@@ -1,4 +1,3 @@
-from ml_orchestrator.artifacts import Dataset
 from tests.dummy_components import ComponentTestA, ComponentTestB
 
 
@@ -10,7 +9,3 @@ def test_base_instance():
     comp1 = ComponentTestA()
     comp2 = ComponentTestB()
     assert set(comp1.comp_vars().values()).issubset(set(comp2.comp_vars().values()))
-
-
-
-

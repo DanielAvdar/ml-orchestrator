@@ -28,9 +28,7 @@ def get_param_meta_data(field: dataclasses.Field, value: Any) -> Tuple[str, str,
     return name, field_type, field_value
 
 
-def get_param_meta_data_str(
-    name: str, field_type: str, value: Any, with_typing: bool = True
-) -> str:
+def get_param_meta_data_str(name: str, field_type: str, value: Any, with_typing: bool = True) -> str:
     if field_type == "str":
         value = f'"{value}"'
 
