@@ -1,0 +1,21 @@
+name: Code Quality
+
+on:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  lint:
+    name: Code Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - run: pipx install poetry
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: poetry
+
+      - run: poetry install
+      - run: poetry run pre-commit install
+      - run: poetry run pre-commit run --all-files

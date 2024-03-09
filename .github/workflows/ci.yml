@@ -1,0 +1,22 @@
+name: PR tests
+on:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        python-version: [ '3.9', '3.10', '3.11', '3.12' ]
+    steps:
+      - uses: actions/checkout@v4
+      - run: pipx install poetry
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: poetry
+
+      - run: poetry install
+      - run: poetry run pytest
+    continue-on-error: true
