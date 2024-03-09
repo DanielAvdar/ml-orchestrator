@@ -18,13 +18,36 @@ pytest = "^7.1.2"
 hypothesis = "^6.23.3"
 pre-commit = "^2.20.0"
 pytest-cov = "^4.0.0"
-pylint = "^2.14.5"
 mypy = "^0.991"
-pylint-junit = "^0.3.2"
-pylint-pytest = "^0.3.0"
+ruff = "^0.3.1"
 
 
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 120
+include = ["pyproject.toml", "tests/**", "ml_orchestrator/**", ]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "B", "I"]
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+section-order = ["future", "standard-library", "first-party", "local-folder", "third-party"]
+[tool.mypy]
+python_version = ">=3.9"
+disallow_untyped_defs = true
+check_untyped_defs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+strict_optional = false
+
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+ignore_errors = true
