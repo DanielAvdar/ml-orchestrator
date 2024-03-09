@@ -1,8 +1,8 @@
 import dataclasses
 
+from ml_orchestrator.comp_parser import ComponentParser
 from ml_orchestrator.env_params import EnvironmentParams
 from ml_orchestrator.meta_comp import MetaComponent
-from ml_orchestrator.operation import Operation
 from tests.dummy_components import ComponentTestB
 
 params = dict(
@@ -24,7 +24,7 @@ class MetaComponentTest(MetaComponent):
 
 def test_fun_op():
     component1 = ComponentTestB()
-    op = Operation(
+    op = ComponentParser(
         kfp_func_name="test_op",
         component=component1,
         environment_params=None,
@@ -51,13 +51,13 @@ def test_fun_op():
 
 
 def test_dec_op():
-    str_func = Operation.create_decorator(EnvironmentParams())
+    str_func = ComponentParser.create_decorator(EnvironmentParams())
 
     assert "None" not in str_func
     assert "@component" in str_func
     assert "(\n\t\n)" in str_func
 
-    str_func = Operation.create_decorator(EnvironmentParams(**params))
+    str_func = ComponentParser.create_decorator(EnvironmentParams(**params))
 
     assert "(\n\t\n)" not in str_func and "()" not in str_func
     assert "None" not in str_func
@@ -67,7 +67,7 @@ def test_dec_op():
 
 
 def test_write_to_file():
-    op = Operation(
+    op = ComponentParser(
         kfp_func_name="dummy_op",
         component=ComponentTestB(),
         environment_params=EnvironmentParams(**params),

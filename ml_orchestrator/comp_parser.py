@@ -14,7 +14,7 @@ IMPORT_COMPOUND = "from kfp.dsl import *\nfrom typing import *"
 
 
 @dataclasses.dataclass
-class Operation:
+class ComponentParser:
     kfp_func_name: str
     component: MetaComponent
     environment_params: EnvironmentParams
@@ -42,8 +42,8 @@ class Operation:
     @staticmethod
     def create_decorator(environment_params: EnvironmentParams) -> str:
         dec_vars = environment_params.comp_vars()
-        prams = Operation.get_func_params(dec_vars, with_typing=False)
-        override_params = Operation._get_decorator_override_params(prams)
+        prams = ComponentParser.get_func_params(dec_vars, with_typing=False)
+        override_params = ComponentParser._get_decorator_override_params(prams)
         dec_scope = "(\n\t" + ",\n\t".join(override_params) + "\n)"
         func_definition = f"@component{dec_scope}"
         return func_definition
