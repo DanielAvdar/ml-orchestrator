@@ -15,7 +15,6 @@ IMPORT_COMPOUND = "from kfp.dsl import *\nfrom typing import *"
 class ComponentParser:
     kfp_func_name: str
     component: MetaComponent
-    environment_params: EnvironmentParams
 
     def create_function(self) -> str:
         component_variables = self.component.comp_vars()
@@ -37,8 +36,8 @@ class ComponentParser:
         return f"from {comp_class.__module__} import {comp_class.__name__}"
 
     @staticmethod
-    def create_decorator(environment_params: EnvironmentParams) -> str:
-        dec_vars = environment_params.comp_vars()
+    def create_decorator(env: EnvironmentParams) -> str:
+        dec_vars = env.comp_vars()
         prams = ComponentParser.get_func_params(dec_vars, with_typing=False)
         override_params = ComponentParser._get_decorator_override_params(prams)
         dec_scope = "(\n\t" + ",\n\t".join(override_params) + "\n)"
@@ -66,8 +65,7 @@ class ComponentParser:
             f.write(file_content)
 
     def create_kfp_str(self) -> str:
-        environment_params = self.environment_params or self.component.env
-        decorator_str = self.create_decorator(environment_params)
+        decorator_str = self.create_decorator(self.component.env)
         decorator_str = decorator_str.replace(" = ", "=")
         function_str = self.create_function()
         kfp_component_str = f"{decorator_str}\n{function_str}"
@@ -78,7 +76,7 @@ class ComponentParser:
     def parse_components_to_file(components: List[MetaComponent], filename: str) -> None:
         kfp_str = ""
         for component in components:
-            parser = ComponentParser(component.kfp_func_name, component, component.env)
+            parser = ComponentParser(component.kfp_func_name, component)
             kfp_str += parser.create_kfp_str()
             kfp_str += "\n\n"
         all_unique_params_names: Set[str] = set()
