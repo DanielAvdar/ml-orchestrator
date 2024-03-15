@@ -8,6 +8,10 @@ from ml_orchestrator.env_params import EnvironmentParams
 
 @dataclasses.dataclass
 class MetaComponent(abc.ABC):
+    @property
+    def kfp_func_name(self) -> str:
+        return self.__class__.__name__.lower()
+
     @abc.abstractmethod
     def execute(
         self,

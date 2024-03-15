@@ -3,7 +3,7 @@ import dataclasses
 from ml_orchestrator.comp_parser import ComponentParser
 from ml_orchestrator.env_params import EnvironmentParams
 from ml_orchestrator.meta_comp import MetaComponent
-from tests.dummy_components import ComponentTestB
+from tests.dummy_components import ComponentTestA, ComponentTestB
 
 params = dict(
     base_image="base_image",
@@ -28,7 +28,6 @@ def test_fun_op():
         kfp_func_name="test_op",
         component=component1,
         environment_params=None,
-        compute_resources=None,
     )
     str_func = op.create_function()
     assert str(component1.param_1) in str_func
@@ -71,7 +70,16 @@ def test_write_to_file():
         kfp_func_name="dummy_op",
         component=ComponentTestB(),
         environment_params=EnvironmentParams(**params),
-        compute_resources=None,
     )
     content = op.create_kfp_str()
     op.write_to_file("t_file.py", content)
+
+
+def test_list_of_comp_write_to_file():
+    op = ComponentParser(
+        kfp_func_name="dummy_op",
+        component=ComponentTestB(),
+        environment_params=EnvironmentParams(**params),
+    )
+    comp_list = [ComponentTestB(), ComponentTestA()]
+    op.parse_components_to_file(comp_list, "t_comps.py")
