@@ -13,14 +13,13 @@ IMPORT_COMPOUND = "from kfp.dsl import *\nfrom typing import *"
 
 @dataclasses.dataclass
 class ComponentParser:
-    kfp_func_name: str
-
     def create_function(self, component: MetaComponent) -> str:
+        kfp_func_name = component.kfp_func_name
         component_variables = component.comp_vars()
         comp_class = component.__class__
         func_scope = "(\n\t" + ",\n\t".join(self.get_func_params(component_variables)) + "\n)"
         comp_scope = "(\n\t\t" + ",\n\t\t".join(self.get_comp_params(component_variables)) + "\n\t)"
-        func_definition = self._format_function_definition(func_scope)
+        func_definition = self._format_function_definition(kfp_func_name, func_scope)
         import_compound = self._format_import_compound(comp_class)
         comp_init = f"comp = {comp_class.__name__}{comp_scope}"
         comp_run = "comp.execute()"
@@ -28,8 +27,8 @@ class ComponentParser:
         str_func = func_definition + "\n\t" + str_func_body
         return str_func
 
-    def _format_function_definition(self, func_scope: str) -> str:
-        return f"def {self.kfp_func_name}{func_scope}:"
+    def _format_function_definition(self, kfp_func_name: str, func_scope: str) -> str:
+        return f"def {kfp_func_name}{func_scope}:"
 
     def _format_import_compound(self, comp_class: Type) -> str:
         return f"from {comp_class.__module__} import {comp_class.__name__}"
@@ -75,9 +74,7 @@ class ComponentParser:
     def parse_components_to_file(components: List[MetaComponent], filename: str) -> None:
         kfp_str = ""
         for component in components:
-            parser = ComponentParser(
-                component.kfp_func_name,
-            )
+            parser = ComponentParser()
             kfp_str += parser.create_kfp_str(component)
             kfp_str += "\n\n"
         all_unique_params_names: Set[str] = set()
