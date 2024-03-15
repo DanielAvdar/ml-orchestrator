@@ -1,8 +1,5 @@
-import dataclasses
-
 from ml_orchestrator.comp_parser import ComponentParser
 from ml_orchestrator.env_params import EnvironmentParams
-from ml_orchestrator.meta_comp import MetaComponent
 from tests.dummy_components import ComponentTestA, ComponentTestB
 
 params = dict(
@@ -14,12 +11,6 @@ params = dict(
     install_kfp_package=True,
     kfp_package_path="kfp_package_path",
 )
-
-
-@dataclasses.dataclass(unsafe_hash=True)
-class MetaComponentTest(MetaComponent):
-    def execute(self) -> None:
-        pass
 
 
 def test_fun_op():
