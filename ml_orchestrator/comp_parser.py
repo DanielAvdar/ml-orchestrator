@@ -14,11 +14,10 @@ IMPORT_COMPOUND = "from kfp.dsl import *\nfrom typing import *"
 @dataclasses.dataclass
 class ComponentParser:
     kfp_func_name: str
-    component: MetaComponent
 
-    def create_function(self) -> str:
-        component_variables = self.component.comp_vars()
-        comp_class = self.component.__class__
+    def create_function(self, component: MetaComponent) -> str:
+        component_variables = component.comp_vars()
+        comp_class = component.__class__
         func_scope = "(\n\t" + ",\n\t".join(self.get_func_params(component_variables)) + "\n)"
         comp_scope = "(\n\t\t" + ",\n\t\t".join(self.get_comp_params(component_variables)) + "\n\t)"
         func_definition = self._format_function_definition(func_scope)
@@ -64,10 +63,10 @@ class ComponentParser:
         with open(filename, "w", encoding="utf-8") as f:
             f.write(file_content)
 
-    def create_kfp_str(self) -> str:
-        decorator_str = self.create_decorator(self.component.env)
+    def create_kfp_str(self, component: MetaComponent) -> str:
+        decorator_str = self.create_decorator(component.env)
         decorator_str = decorator_str.replace(" = ", "=")
-        function_str = self.create_function()
+        function_str = self.create_function(component)
         kfp_component_str = f"{decorator_str}\n{function_str}"
         kfp_component_str = kfp_component_str.replace("\t", "    ")
         return kfp_component_str + "\n"
@@ -76,8 +75,10 @@ class ComponentParser:
     def parse_components_to_file(components: List[MetaComponent], filename: str) -> None:
         kfp_str = ""
         for component in components:
-            parser = ComponentParser(component.kfp_func_name, component)
-            kfp_str += parser.create_kfp_str()
+            parser = ComponentParser(
+                component.kfp_func_name,
+            )
+            kfp_str += parser.create_kfp_str(component)
             kfp_str += "\n\n"
         all_unique_params_names: Set[str] = set()
         for component in components:

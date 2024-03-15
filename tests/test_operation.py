@@ -26,9 +26,8 @@ def test_fun_op():
     component1 = ComponentTestB()
     op = ComponentParser(
         kfp_func_name="test_op",
-        component=component1,
     )
-    str_func = op.create_function()
+    str_func = op.create_function(component=component1)
     assert str(component1.param_1) in str_func
     assert str(component1.param_2) in str_func
     assert "param_1" in str_func and "param_1=param_1" in str_func
@@ -67,16 +66,14 @@ def test_dec_op():
 def test_write_to_file():
     op = ComponentParser(
         kfp_func_name="dummy_op",
-        component=ComponentTestB(),
     )
-    content = op.create_kfp_str()
+    content = op.create_kfp_str(component=ComponentTestB())
     op.write_to_file("t_file.py", content)
 
 
 def test_list_of_comp_write_to_file():
     op = ComponentParser(
         kfp_func_name="dummy_op",
-        component=ComponentTestB(),
     )
     comp_list = [ComponentTestB(), ComponentTestA()]
     op.parse_components_to_file(comp_list, "t_comps.py")
