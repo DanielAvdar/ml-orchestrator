@@ -18,5 +18,6 @@ jobs:
           cache: poetry
 
       - run: poetry install
+      - run: poetry check
       - run: poetry run pytest
     continue-on-error: true

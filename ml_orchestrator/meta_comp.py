@@ -1,6 +1,5 @@
 import abc
 import dataclasses
-import importlib
 from typing import Any, Dict, Tuple
 
 from ml_orchestrator.env_params import EnvironmentParams
@@ -8,6 +7,10 @@ from ml_orchestrator.env_params import EnvironmentParams
 
 @dataclasses.dataclass
 class MetaComponent(abc.ABC):
+    @property
+    def kfp_func_name(self) -> str:
+        return self.__class__.__name__.lower()
+
     @abc.abstractmethod
     def execute(
         self,
@@ -28,7 +31,5 @@ class MetaComponent(abc.ABC):
 
     @property
     def env(self) -> EnvironmentParams:
-        ml_orchestrator_ver = importlib.metadata.version("ml-orchestrator")
-        return EnvironmentParams(
-            packages_to_install=[f"ml-orchestrator=={ml_orchestrator_ver}"],
-        )
+        # ml_orchestrator_ver = importlib.metadata.version("ml-orchestrator")
+        return EnvironmentParams()
