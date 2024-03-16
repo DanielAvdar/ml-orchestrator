@@ -59,6 +59,7 @@ class ComponentParser:
     @staticmethod
     def write_to_file(filename: str, content: str) -> None:
         file_content = f"{IMPORT_COMPOUND}\n\n\n{content}"
+        file_content = f"# flake8: noqa: F403, F405\n{file_content}"
         with open(filename, "w", encoding="utf-8") as f:
             f.write(file_content)
 
