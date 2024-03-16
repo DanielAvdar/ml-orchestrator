@@ -1,6 +1,5 @@
 import abc
 import dataclasses
-import importlib
 from typing import Any, Dict, Tuple
 
 from ml_orchestrator.env_params import EnvironmentParams
@@ -32,7 +31,5 @@ class MetaComponent(abc.ABC):
 
     @property
     def env(self) -> EnvironmentParams:
-        ml_orchestrator_ver = importlib.metadata.version("ml-orchestrator")
-        return EnvironmentParams(
-            packages_to_install=[f"ml-orchestrator=={ml_orchestrator_ver}"],
-        )
+        # ml_orchestrator_ver = importlib.metadata.version("ml-orchestrator")
+        return EnvironmentParams()
