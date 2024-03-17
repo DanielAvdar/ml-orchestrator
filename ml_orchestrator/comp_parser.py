@@ -8,7 +8,7 @@ from ml_orchestrator.utils.field_utils import (
     get_param_meta_data_str,
 )
 
-IMPORT_COMPOUND = "from kfp.dsl import *\nfrom typing import *"
+IMPORT_COMPOUND = "from kfp.dsl import *\nfrom typing import *\nimport importlib\n"
 
 
 @dataclasses.dataclass
@@ -39,6 +39,7 @@ class ComponentParser:
         prams = ComponentParser.get_func_params(dec_vars, with_typing=False)
         override_params = ComponentParser._get_decorator_override_params(prams)
         dec_scope = "(\n\t" + ",\n\t".join(override_params) + "\n)"
+        dec_scope = dec_scope.replace(", '", ", f'").replace("['", "[f'")
         func_definition = f"@component{dec_scope}"
         return func_definition
 
