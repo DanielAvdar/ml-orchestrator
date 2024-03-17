@@ -1,7 +1,7 @@
 import dataclasses
 from typing import List
 
-from ml_orchestrator.artifacts import Dataset, Input, Output
+from ml_orchestrator.artifacts import Dataset, Input, Metrics, Model, Output
 from ml_orchestrator.meta_comp import MetaComponent
 
 
@@ -17,6 +17,7 @@ class ComponentTestA(MetaComponentTest):
     param_2: str = "1"
     artifact: Input[Dataset] = None
     out_artifact: Output[Dataset] = None
+    metrics: Output[Metrics] = None
 
 
 @dataclasses.dataclass(unsafe_hash=True)
@@ -24,3 +25,4 @@ class ComponentTestB(ComponentTestA):
     param_3: int = 2
     param_4: str = "2"
     param_list: List[int] = None
+    model: Output[Model] = None
