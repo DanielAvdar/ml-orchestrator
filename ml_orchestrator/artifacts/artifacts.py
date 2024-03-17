@@ -17,6 +17,8 @@ class Markdown(Artifact):
     pass
 
 
-class Metric(Artifact):
+class Metrics(Artifact):
     def log_metric(self, metric: str, value: float) -> None:
+        assert isinstance(value, (int, float, bool, str)), f"Type {type(value)} is not a valid metric value"
+        assert isinstance(metric, str), f"Type {type(metric)} is not a valid metric name"
         self.metadata[metric] = value
