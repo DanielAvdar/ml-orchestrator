@@ -48,7 +48,8 @@ def test_dec_op():
     assert "(\n\t\n)" not in str_func and "()" not in str_func
     assert "None" not in str_func
     for k, v in params.items():
-        assert str(v).replace(", '", ", f'").replace("['", "[f'") in str_func
+        parsed = ComponentParser.convert_to_format_str(str(v))
+        assert parsed in str_func
         assert k in str_func
 
 
