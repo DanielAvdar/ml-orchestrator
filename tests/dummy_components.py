@@ -33,7 +33,7 @@ class ComponentTestB(ComponentTestA):
         return EnvironmentParams(
             base_image="base_image",
             target_image="target_image",
-            packages_to_install=["packages_to_install", ""],
+            packages_to_install=["packages_to_install", "", "sd''{d}"],
             pip_index_urls=["pip_index_urls"],
             output_component_file="output_component_file",
             install_kfp_package=True,
