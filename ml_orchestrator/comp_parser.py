@@ -8,7 +8,7 @@ from ml_orchestrator.utils.field_utils import (
     get_param_meta_data_str,
 )
 
-IMPORT_COMPOUND = "from kfp.dsl import *\nfrom typing import *\nimport importlib\n"
+IMPORT_COMPOUND = "from kfp.dsl import *\nfrom typing import *\nfrom importlib.metadata import version\n"
 
 
 @dataclasses.dataclass
