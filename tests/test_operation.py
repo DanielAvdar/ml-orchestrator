@@ -63,3 +63,9 @@ def test_list_of_comp_write_to_file():
     op = ComponentParser()
     comp_list = [ComponentTestB(), ComponentTestA()]
     op.parse_components_to_file(comp_list, "t_comps.py")
+
+
+def test_list_of_comp_write_to_file_with_add_imports():
+    op = ComponentParser(add_imports=["from ml_orchestrator import MetaComponent"])
+    comp_list = [ComponentTestB(), ComponentTestA()]
+    op.parse_components_to_file(comp_list, "t_comps2.py")
