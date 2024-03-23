@@ -13,6 +13,8 @@ IMPORT_COMPOUND = "from kfp.dsl import *\nfrom typing import *\nfrom importlib.m
 
 @dataclasses.dataclass
 class ComponentParser:
+    add_imports: List[str] = dataclasses.field(default_factory=lambda: [])
+
     def create_function(self, component: MetaComponent) -> str:
         kfp_func_name = component.kfp_func_name
         component_variables = component.comp_vars()
@@ -63,9 +65,10 @@ class ComponentParser:
     def get_comp_params(comp_vars: Dict) -> List[str]:
         return [f"{k.name}={k.name}" for k, v in comp_vars.items()]
 
-    @staticmethod
-    def write_to_file(filename: str, content: str) -> None:
+    def write_to_file(self, filename: str, content: str) -> None:
         file_content = f"{IMPORT_COMPOUND}\n\n\n{content}"
+        for imp in self.add_imports:
+            file_content = f"{imp}\n{file_content}"
         file_content = f"# flake8: noqa: F403, F405, B006\n{file_content}"
         with open(filename, "w", encoding="utf-8") as f:
             f.write(file_content)
@@ -78,8 +81,7 @@ class ComponentParser:
         kfp_component_str = kfp_component_str.replace("\t", "    ")
         return kfp_component_str + "\n"
 
-    @staticmethod
-    def parse_components_to_file(components: List[MetaComponent], filename: str) -> None:
+    def parse_components_to_file(self, components: List[MetaComponent], filename: str) -> None:
         kfp_str = ""
         for component in components:
             parser = ComponentParser()
@@ -91,4 +93,4 @@ class ComponentParser:
         comment_str = "\n# " + "\n# ".join([f"{p}: {p}" for p in all_unique_params_names])
         kfp_str = f"{kfp_str}\n{comment_str}"
 
-        ComponentParser.write_to_file(filename, kfp_str)
+        self.write_to_file(filename, kfp_str)
