@@ -90,7 +90,5 @@ class ComponentParser:
         all_unique_params_names: Set[str] = set()
         for component in components:
             all_unique_params_names.update([p.name for p in component.comp_fields()])
-        comment_str = "\n# " + "\n# ".join([f"{p}: {p}" for p in all_unique_params_names])
-        kfp_str = f"{kfp_str}\n{comment_str}"
 
         self.write_to_file(filename, kfp_str)
