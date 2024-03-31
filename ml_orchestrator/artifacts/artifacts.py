@@ -1,3 +1,5 @@
+from typing import Dict, Optional
+
 from ml_orchestrator.artifacts import Artifact
 
 
@@ -10,6 +12,10 @@ class Dataset(Artifact):
 
 
 class HTML(Artifact):
+    def __init__(self, name: Optional[str] = None, uri: Optional[str] = None, metadata: Optional[Dict] = None) -> None:
+        super().__init__(name=name, uri=uri, metadata=metadata)
+        self.uri = self.uri + ".html"
+
     pass
 
 
