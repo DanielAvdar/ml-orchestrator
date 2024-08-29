@@ -7,7 +7,6 @@ params = dict(
     target_image="target_image",
     packages_to_install=["packages_to_install", ""],
     pip_index_urls=["pip_index_urls"],
-    output_component_file="output_component_file",
     install_kfp_package=True,
     kfp_package_path="kfp_package_path",
 )
