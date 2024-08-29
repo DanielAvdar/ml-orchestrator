@@ -16,5 +16,5 @@ jobs:
 
       - run: poetry install
       - run: poetry check
-      - run: poetry run pytest ./test/test_iso
+      - run: poetry run pytest ./tests/test_iso
     continue-on-error: true
