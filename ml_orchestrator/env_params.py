@@ -8,7 +8,6 @@ class EnvironmentParams:
     target_image: str = None
     packages_to_install: List[str] = dataclasses.field(default_factory=lambda: None)
     pip_index_urls: List[str] = dataclasses.field(default_factory=lambda: None)
-    output_component_file: str = None
     install_kfp_package: bool = None
     kfp_package_path: str = None
 
