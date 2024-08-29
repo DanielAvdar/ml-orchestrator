@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: pipx install poetry
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
       - run: poetry install
       - run: poetry run pytest
       - run: poetry version ${{ github.ref_name }}
