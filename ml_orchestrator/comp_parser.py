@@ -1,5 +1,5 @@
 import dataclasses
-from typing import Dict, List, Set, Type
+from typing import Dict, List, Type
 
 from ml_orchestrator.env_params import EnvironmentParams
 from ml_orchestrator.meta_comp import MetaComponent
@@ -87,8 +87,5 @@ class ComponentParser:
             parser = ComponentParser()
             kfp_str += parser.create_kfp_str(component)
             kfp_str += "\n\n"
-        all_unique_params_names: Set[str] = set()
-        for component in components:
-            all_unique_params_names.update([p.name for p in component.comp_fields()])
 
         self.write_to_file(filename, kfp_str)
