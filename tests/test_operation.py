@@ -56,15 +56,24 @@ def test_write_to_file():
     op = ComponentParser()
     content = op.create_kfp_str(component=ComponentTestB())
     op.write_to_file("t_file.py", content)
+    file_content = open("t_file.py", "r").read()
+    assert content in file_content
+    assert "from kfp.dsl import *" in file_content
 
 
 def test_list_of_comp_write_to_file():
     op = ComponentParser()
     comp_list = [ComponentTestB(), ComponentTestA()]
     op.parse_components_to_file(comp_list, "t_comps.py")
+    file_content = open("t_comps.py", "r").read()
+    assert "from tests.dummy_components import ComponentTestB" in file_content
+    assert "from tests.dummy_components import ComponentTestA" in file_content
 
 
 def test_list_of_comp_write_to_file_with_add_imports():
     op = ComponentParser(add_imports=["from ml_orchestrator import MetaComponent"])
     comp_list = [ComponentTestB(), ComponentTestA()]
     op.parse_components_to_file(comp_list, "t_comps2.py")
+    assert "from ml_orchestrator import MetaComponent" in op.add_imports
+    file_content = open("t_comps2.py", "r").read()
+    assert "from ml_orchestrator import MetaComponent" in file_content
