@@ -14,6 +14,7 @@ IMPORT_COMPOUND = "from kfp.dsl import *\nfrom typing import *\nfrom importlib.m
 @dataclasses.dataclass
 class ComponentParser:
     add_imports: List[str] = dataclasses.field(default_factory=lambda: [])
+    only_function: bool = False
 
     def create_function(self, component: MetaComponent) -> str:
         kfp_func_name = component.kfp_func_name
@@ -77,6 +78,8 @@ class ComponentParser:
         decorator_str = self.create_decorator(component.env)
         decorator_str = decorator_str.replace(" = ", "=")
         function_str = self.create_function(component)
+        if self.only_function:
+            return function_str
         kfp_component_str = f"{decorator_str}\n{function_str}"
         kfp_component_str = kfp_component_str.replace("\t", "    ")
         return kfp_component_str + "\n"
@@ -84,8 +87,7 @@ class ComponentParser:
     def parse_components_to_file(self, components: List[MetaComponent], filename: str) -> None:
         kfp_str = ""
         for component in components:
-            parser = ComponentParser()
-            kfp_str += parser.create_kfp_str(component)
+            kfp_str += self.create_kfp_str(component)
             kfp_str += "\n\n"
 
         self.write_to_file(filename, kfp_str)
