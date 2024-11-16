@@ -32,8 +32,8 @@ class ComponentParser(FunctionParser):
     def _get_decorator_override_params(prams: List[str]) -> List[str]:
         return [p for p in prams if "None" not in p]
 
-    def create_kfp_str(self, component: MetaComponent) -> str:
-        function_str = super().create_kfp_str(component)
+    def create_kfp_str(self, component: MetaComponent) -> str:  # type: ignore
+        function_str = super().create_kfp_str(component)  # type: ignore
         if self.only_function:
             return function_str
         decorator_str = self.create_decorator(component.env)
