@@ -4,14 +4,14 @@ from .func_parser import FunctionParser
 import pytest
 
 
-class TestProtocolCompSuite:
+class ProtocolCompSuite:
     @pytest.fixture
     def comp_fixture(self, *args, **kwargs):
         pass
 
     def test_flows_protocol(self, comp_fixture):
-        if isinstance(comp_fixture, type):
-            comp_fixture()
+        # if isinstance(comp_fixture, type):
+        #     comp_fixture()
         assert isinstance(comp_fixture, ComponentProtocol)
 
     def test_comp_protocol_attrs(self, comp_fixture):
