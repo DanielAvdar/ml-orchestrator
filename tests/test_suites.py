@@ -1,9 +1,9 @@
-from ml_orchestrator.comp_protocol.t_suites import TestProtocolCompSuite
+from ml_orchestrator.comp_protocol.t_suites import ProtocolCompSuite
 
 import pytest
 
 
-class TestProtocolCompSuite(TestProtocolCompSuite):
+class TestProtocolCompSuite(ProtocolCompSuite):
     @pytest.fixture
     def comp_fixture(self, dummy_component_class):
         return dummy_component_class
