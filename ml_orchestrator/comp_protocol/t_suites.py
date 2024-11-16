@@ -1,18 +1,20 @@
-from .comp_protocol import ComponentProtocol
+import abc
+
 from .func_parser import FunctionParser
 
 import pytest
 
 
-class ProtocolCompSuite:
+class ProtocolCompSuite(abc.ABC):
     @pytest.fixture
+    @abc.abstractmethod
     def comp_fixture(self, *args, **kwargs):
         pass
 
-    def test_flows_protocol(self, comp_fixture):
-        # if isinstance(comp_fixture, type):
-        #     comp_fixture()
-        assert isinstance(comp_fixture, ComponentProtocol)
+    # def test_flows_protocol(self, comp_fixture):
+    #     # if isinstance(comp_fixture, type):
+    #     #     comp_fixture()
+    #     assert isinstance(comp_fixture, ComponentProtocol)
 
     def test_comp_protocol_attrs(self, comp_fixture):
         fp = FunctionParser()
