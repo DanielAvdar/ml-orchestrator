@@ -15,6 +15,8 @@ jobs:
       - run: pipx install poetry
       - uses: actions/setup-python@v5
       - run: poetry install
+      - run: poetry run pytest ./tests/test_iso
+      - run: poetry install --all-extras
       - run: poetry run pytest
       - run: poetry version ${{ github.ref_name }}
       - run: poetry build
