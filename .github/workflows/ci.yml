@@ -8,16 +8,16 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
-        python-version: [ '3.9', '3.10', '3.11', '3.12' ]
+        python-version: [ '3.9', '3.10', '3.11', '3.12', '3.13' ]
     steps:
       - uses: actions/checkout@v4
       - run: pipx install poetry
+      - run: poetry check
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           cache: poetry
 
       - run: poetry install --all-extras
-      - run: poetry check
       - run: poetry run pytest
     continue-on-error: true

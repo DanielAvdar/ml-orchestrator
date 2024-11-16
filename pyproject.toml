@@ -10,7 +10,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.13"
+python = ">=3.9,<=3.13"
 kfp = { version = ">=2.7.0", optional = true }
 
 [tool.poetry.dev-dependencies]

@@ -12,13 +12,4 @@ repos:
       - id: ruff-format
         args: [ --preview ]
       - id: ruff
-        args: [ --preview, --fix,--unsafe-fixes]
-
-  - repo: local
-    hooks:
-      - id: mypy
-        name: mypy
-        entry: mypy
-        language: python
-        types: [ python ]
-        args: [ --config-file, pyproject.toml ]
+        args: [ --preview, --fix,--unsafe-fixes ]

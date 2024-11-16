@@ -1,12 +1,10 @@
 from importlib.metadata import version
 
 from .comp_parser import ComponentParser
+from .comp_protocol.func_parser import FunctionParser
+from .comp_protocol.t_suites import ProtocolCompSuite
 from .env_params import EnvironmentParams
 from .meta_comp import MetaComponent
 
 __version__ = version("ml-orchestrator")
-__all__ = [
-    "ComponentParser",
-    "MetaComponent",
-    "EnvironmentParams",
-]
+__all__ = ["ComponentParser", "FunctionParser", "MetaComponent", "EnvironmentParams", "ProtocolCompSuite"]

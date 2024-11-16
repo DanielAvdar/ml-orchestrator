@@ -13,6 +13,12 @@ def test_kfp_not_installed():
 
 def test_import_orchestrator():
     # assert orchestrator is installed
-    from ml_orchestrator import ComponentParser, MetaComponent, EnvironmentParams  # noqa
+    from ml_orchestrator import (  # noqa
+        ComponentParser,
+        MetaComponent,
+        EnvironmentParams,
+        ProtocolCompSuite,
+        FunctionParser,
+    )
 
     assert True
