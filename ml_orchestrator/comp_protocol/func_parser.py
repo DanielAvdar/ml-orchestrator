@@ -31,7 +31,7 @@ class FunctionParser:
         func_scope = "(\n\t" + ",\n\t".join(self.get_func_params(component_variables)) + "\n)"
         comp_scope = "(\n\t\t" + ",\n\t\t".join(self.get_comp_params(component_variables)) + "\n\t)"
         func_definition = f"def {kfp_func_name}{func_scope}:"
-        comp_init = f"comp = {comp_class.__class__.__name__}{comp_scope}"
+        comp_init = f"comp = {comp_class.__name__}{comp_scope}"
         return comp_init, func_definition
 
     @classmethod
