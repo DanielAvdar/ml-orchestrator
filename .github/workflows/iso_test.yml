@@ -9,11 +9,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: pipx install poetry
+      - run: poetry check
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - run: poetry install
-      - run: poetry check
       - run: poetry run pytest ./tests/test_iso
     continue-on-error: true
