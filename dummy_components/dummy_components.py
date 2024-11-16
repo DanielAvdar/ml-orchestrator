@@ -42,5 +42,5 @@ class ComponentTestB(ComponentTestA):
 
 @dataclasses.dataclass(unsafe_hash=True)
 class ComponentTestC(ComponentTestB):
-    def execute(self) -> int:
+    def execute(self) -> int:  # type: ignore
         return 1
