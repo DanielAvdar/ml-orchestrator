@@ -10,8 +10,7 @@ import pytest
 class ProtocolCompSuite(abc.ABC):
     @pytest.fixture
     @abc.abstractmethod
-    def comp_fixture(self, *args: Any, **kwargs: Any) -> ComponentProtocol:
-        pass
+    def comp_fixture(self, *args: Any, **kwargs: Any) -> ComponentProtocol: ...
 
     def test_flows_protocol(self, comp_fixture: ComponentProtocol) -> None:
         assert isinstance(comp_fixture, ComponentProtocol)
