@@ -10,6 +10,8 @@ class TestProtocolCompSuite:
         pass
 
     def test_flows_protocol(self, comp_fixture):
+        if isinstance(comp_fixture, type):
+            comp_fixture()
         assert isinstance(comp_fixture, ComponentProtocol)
 
     def test_comp_protocol_attrs(self, comp_fixture):
