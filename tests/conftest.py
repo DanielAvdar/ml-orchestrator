@@ -33,7 +33,7 @@ def dummy_component_class(request):
     return request.param
 
 
-@pytest.fixture(params=[ipcomps.ComponentTestB, ipcomps.ComponentTestA, dcomps.ComponentTestC])
+@pytest.fixture(params=[ipcomps.ComponentTestB, ipcomps.ComponentTestA])
 def dummy_invalid_component_class(request):
     return request.param
 

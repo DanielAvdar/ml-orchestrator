@@ -9,7 +9,7 @@ class TestProtocolCompSuite(ProtocolCompSuite):
         return dummy_component_class
 
 
-@pytest.mark.xfail(raises=[AssertionError, TypeError], strict=True)
+@pytest.mark.xfail(raises=(AssertionError, TypeError), strict=True)
 class TestInvalidProtocolCompSuite(ProtocolCompSuite):
     @pytest.fixture
     def comp_fixture(self, dummy_invalid_component_class):
