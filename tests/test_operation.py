@@ -36,6 +36,8 @@ def test_fun_op(only_function):
     assert "[Dataset]" in str_func
     assert "Input" in str_func
     assert "Output" in str_func
+    assert "ComponentTestB(" in str_func
+
     if only_function:
         assert str_func == op.create_kfp_str(component=component1)
     else:
