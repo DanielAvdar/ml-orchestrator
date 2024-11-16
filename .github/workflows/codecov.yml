@@ -18,7 +18,7 @@ jobs:
           python-version: '3.11'
           cache: poetry
 
-      - run: poetry install
+      - run: poetry install --all-extras
       - run: poetry run pytest --cov=ml_orchestrator --cov-report=xml
       - uses: codecov/codecov-action@v4
         with:
