@@ -20,11 +20,11 @@ def fp(request):
     return FunctionParser()
 
 
-# @pytest.fixture(params=[ComponentTestB, ComponentTestA])
 @pytest.fixture(
     params=[
         dcomps.ComponentTestB,
         dcomps.ComponentTestA,
+        dcomps.ComponentTestC,
         pcomps.ComponentTestB,
         pcomps.ComponentTestA,
     ]

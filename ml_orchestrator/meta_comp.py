@@ -10,8 +10,7 @@ class MetaComponent(abc.ABC):
     @abc.abstractmethod
     def execute(
         self,
-    ) -> None:
-        pass
+    ) -> None: ...
 
     @classmethod
     def kfp_func_name(cls) -> str:

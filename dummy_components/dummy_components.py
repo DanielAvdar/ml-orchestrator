@@ -38,3 +38,9 @@ class ComponentTestB(ComponentTestA):
             install_kfp_package=True,
             kfp_package_path="kfp_package_path",
         )
+
+
+@dataclasses.dataclass(unsafe_hash=True)
+class ComponentTestC(ComponentTestB):
+    def execute(self) -> int:
+        return 1
