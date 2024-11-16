@@ -38,3 +38,22 @@ class ComponentTestB(ComponentTestA):
             install_kfp_package=True,
             kfp_package_path="kfp_package_path",
         )
+
+
+@dataclasses.dataclass(unsafe_hash=True)
+class ComponentTestC:
+    param_3: int = 2
+    param_4: ComponentTestB = None
+    param_list: List[int] = None
+    model: Output[Model] = None
+
+    @property
+    def env(self) -> EnvironmentParams:
+        return EnvironmentParams(
+            base_image="base_image",
+            target_image="target_image",
+            packages_to_install=["packages_to_install", "", "sd''{d}"],
+            pip_index_urls=["pip_index_urls"],
+            install_kfp_package=True,
+            kfp_package_path="kfp_package_path",
+        )

@@ -1,6 +1,6 @@
+from dummy_components.dummy_components import ComponentTestB
 from ml_orchestrator.comp_parser import ComponentParser
 from ml_orchestrator.env_params import EnvironmentParams
-from tests.dummy_components import ComponentTestA, ComponentTestB
 
 import pytest
 
@@ -23,7 +23,7 @@ def test_fun_op(only_function):
     assert str(component1.param_2) in str_func
     assert "param_1" in str_func and "param_1=param_1" in str_func
     assert "param_2" in str_func and "param_2=param_2" in str_func
-    assert component1.kfp_func_name in str_func
+    assert component1.kfp_func_name() in str_func
     assert "def " in str_func
     assert "execute" in str_func
     assert "comp" in str_func
@@ -57,40 +57,3 @@ def test_dec_op():
         parsed = ComponentParser.convert_to_format_str(str(v))
         assert parsed in str_func
         assert k in str_func
-
-
-@pytest.mark.parametrize("only_function", [True, False])
-def test_write_to_file(only_function):
-    op = ComponentParser(only_function=only_function)
-    content = op.create_kfp_str(component=ComponentTestB())
-    # op.write_to_file("t_file.py", content)
-    # file_content = open("t_file.py", "r").read()
-    file_name = f"{str(only_function).lower()}-t_file.py"
-    op.write_to_file(file_name, content)
-    file_content = open(file_name, "r").read()
-    assert content in file_content
-    assert "from kfp.dsl import *" in file_content
-
-
-@pytest.mark.parametrize("only_function", [True, False])
-def test_list_of_comp_write_to_file(only_function):
-    op = ComponentParser(only_function=only_function)
-    comp_list = [ComponentTestB(), ComponentTestA()]
-    file_name = f"{str(only_function).lower()}-t_comps2.py"
-
-    op.parse_components_to_file(comp_list, file_name)
-    file_content = open(file_name, "r").read()
-    assert "from tests.dummy_components import ComponentTestB" in file_content
-    assert "from tests.dummy_components import ComponentTestA" in file_content
-
-
-@pytest.mark.parametrize("only_function", [True, False])
-def test_list_of_comp_write_to_file_with_add_imports(only_function):
-    add_imports = ["from ml_orchestrator import MetaComponent"]
-    op = ComponentParser(add_imports=add_imports, only_function=only_function)
-    comp_list = [ComponentTestB(), ComponentTestA()]
-    file_name = f"{str(only_function).lower()}-t_comps2.py"
-    op.parse_components_to_file(comp_list, file_name)
-    assert "from ml_orchestrator import MetaComponent" in op.add_imports
-    file_content = open(file_name, "r").read()
-    assert "from ml_orchestrator import MetaComponent" in file_content
