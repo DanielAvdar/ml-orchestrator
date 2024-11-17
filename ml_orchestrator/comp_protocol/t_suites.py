@@ -4,10 +4,10 @@ from typing import Any
 from .comp_protocol import ComponentProtocol
 from .func_parser import FunctionParser
 
-import pytest
-
 
 class ProtocolCompSuite(abc.ABC):
+    import pytest
+
     @pytest.fixture
     @abc.abstractmethod
     def comp_fixture(self, *args: Any, **kwargs: Any) -> ComponentProtocol: ...
