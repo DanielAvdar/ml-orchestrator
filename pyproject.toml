@@ -52,6 +52,3 @@ strict_optional = false
 [[tool.mypy.overrides]]
 module = "tests.*"
 ignore_errors = true
-
-[tool.pytest.ini_options]
-addopts =[ "--ignore=./tests/test_iso", "--ignore=test_iso"]
