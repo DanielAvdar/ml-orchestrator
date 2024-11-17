@@ -3,7 +3,6 @@ if __name__ == "__main__":
         ComponentParser,
         MetaComponent,
         EnvironmentParams,
-        ProtocolCompSuite,
         FunctionParser,
     )
 
