@@ -25,8 +25,13 @@ def fp(request):
         dcomps.ComponentTestB,
         dcomps.ComponentTestA,
         dcomps.ComponentTestC,
+        dcomps.ComponentTestC2,
+        dcomps.ComponentTestC3,
         pcomps.ComponentTestB,
         pcomps.ComponentTestA,
+        pcomps.ComponentTestC,
+        pcomps.ComponentTestC2,
+        pcomps.ComponentTestC3,
     ]
 )
 def dummy_component_class(request):

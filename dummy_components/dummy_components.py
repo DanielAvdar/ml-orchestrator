@@ -44,3 +44,15 @@ class ComponentTestB(ComponentTestA):
 class ComponentTestC(ComponentTestB):
     def execute(self) -> int:  # type: ignore
         return 1
+
+
+@dataclasses.dataclass(unsafe_hash=True)
+class ComponentTestC2(ComponentTestB):
+    def execute(self) -> str:  # type: ignore
+        return "1"
+
+
+@dataclasses.dataclass(unsafe_hash=True)
+class ComponentTestC3(ComponentTestB):
+    def execute(self) -> bool:  # type: ignore
+        return False
