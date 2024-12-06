@@ -46,7 +46,7 @@ class FunctionParser:
         return comp_run
 
     @classmethod
-    def exe_return(cls, comp) -> Any:
+    def exe_return(cls, comp: Type[ComponentProtocol]) -> Any:
         execute_return_type = comp.execute.__annotations__.get("return")
         return execute_return_type
 
