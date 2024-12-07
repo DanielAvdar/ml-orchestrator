@@ -63,7 +63,7 @@ class FunctionParser:
         for field in fields:
             field_defaults = field.default if not field.default == dataclasses.MISSING else None
             field_has_default_factory = field.default_factory == dataclasses.MISSING
-            field_defaults = field.default_factory() if not field_has_default_factory and field_defaults else None
+            field_defaults = field.default_factory() if not field_has_default_factory and field_defaults else None  # type: ignore
             ins_vars[field] = field_defaults
 
         return ins_vars
