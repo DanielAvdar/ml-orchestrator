@@ -27,6 +27,8 @@ def fp(request):
         dcomps.ComponentTestC,
         dcomps.ComponentTestC2,
         dcomps.ComponentTestC3,
+        dcomps.ComponentTestD,
+        dcomps.ComponentTestD2,
         pcomps.ComponentTestB,
         pcomps.ComponentTestA,
         pcomps.ComponentTestC,

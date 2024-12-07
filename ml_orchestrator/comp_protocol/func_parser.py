@@ -61,7 +61,10 @@ class FunctionParser:
         fields = dataclasses.fields(component)  # type: ignore
         ins_vars = dict()
         for field in fields:
-            ins_vars[field] = getattr(component, field.name)
+            field_defaults = field.default if not field.default == dataclasses.MISSING else None
+            field_has_default_factory = field.default_factory == dataclasses.MISSING
+            field_defaults = field.default_factory() if not field_has_default_factory and field_defaults else None
+            ins_vars[field] = field_defaults
 
         return ins_vars
 
