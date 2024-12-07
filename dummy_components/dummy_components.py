@@ -1,4 +1,4 @@
-import dataclasses
+from dataclasses import dataclass, field
 from typing import List
 
 from ml_orchestrator import EnvironmentParams
@@ -6,13 +6,13 @@ from ml_orchestrator.artifacts import Dataset, Input, Metrics, Model, Output
 from ml_orchestrator.meta_comp import MetaComponent
 
 
-@dataclasses.dataclass(unsafe_hash=True)
+@dataclass
 class MetaComponentTest(MetaComponent):
     def execute(self) -> None:
         pass
 
 
-@dataclasses.dataclass(unsafe_hash=True)
+@dataclass
 class ComponentTestA(MetaComponentTest):
     param_1: int = 1
     param_2: str = "1"
@@ -21,11 +21,12 @@ class ComponentTestA(MetaComponentTest):
     metrics: Output[Metrics] = None
 
 
-@dataclasses.dataclass(unsafe_hash=True)
+@dataclass
 class ComponentTestB(ComponentTestA):
     param_3: int = 2
     param_4: str = "2"
     param_list: List[int] = None
+
     model: Output[Model] = None
 
     @property
@@ -40,7 +41,36 @@ class ComponentTestB(ComponentTestA):
         )
 
 
-@dataclasses.dataclass(unsafe_hash=True)
+@dataclass
 class ComponentTestC(ComponentTestB):
     def execute(self) -> int:  # type: ignore
         return 1
+
+
+@dataclass
+class ComponentTestC2(ComponentTestB):
+    def execute(self) -> str:  # type: ignore
+        return "1"
+
+
+@dataclass
+class ComponentTestC3(ComponentTestB):
+    def execute(self) -> bool:  # type: ignore
+        return False
+
+
+@dataclass
+class ComponentTestD(ComponentTestB):
+    param_list_2: List[int] = field(default_factory=list)
+    param_list_3: List[int] = field(default_factory=lambda: [1, 2, 3])
+
+    def execute(self) -> None:
+        pass
+
+
+@dataclass
+class ComponentTestD2(ComponentTestB):
+    param_dict: dict = field(default_factory=dict)
+
+    def execute(self) -> None:
+        pass

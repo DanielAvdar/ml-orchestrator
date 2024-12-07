@@ -37,3 +37,21 @@ class ComponentTestB(ComponentTestA):
             install_kfp_package=True,
             kfp_package_path="kfp_package_path",
         )
+
+
+@dataclasses.dataclass(unsafe_hash=True)
+class ComponentTestC(ComponentTestB):
+    def execute(self) -> int:  # type: ignore
+        return 1
+
+
+@dataclasses.dataclass(unsafe_hash=True)
+class ComponentTestC2(ComponentTestB):
+    def execute(self) -> str:  # type: ignore
+        return "1"
+
+
+@dataclasses.dataclass(unsafe_hash=True)
+class ComponentTestC3(ComponentTestB):
+    def execute(self) -> bool:  # type: ignore
+        return False

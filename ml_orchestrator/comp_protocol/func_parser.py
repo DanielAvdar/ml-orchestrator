@@ -30,17 +30,25 @@ class FunctionParser:
         kfp_func_name = comp_class.__name__.lower()
         func_scope = "(\n\t" + ",\n\t".join(self.get_func_params(component_variables)) + "\n)"
         comp_scope = "(\n\t\t" + ",\n\t\t".join(self.get_comp_params(component_variables)) + "\n\t)"
-        func_definition = f"def {kfp_func_name}{func_scope}:"
+        return_type = ""
+        if self.exe_return(comp_class) is not None:
+            return_type = f" -> {self.exe_return(comp_class).__name__}"
+
+        func_definition = f"def {kfp_func_name}{func_scope}{return_type}:"
         comp_init = f"comp = {comp_class.__name__}{comp_scope}"
         return comp_init, func_definition
 
     @classmethod
     def comp_execute(cls, comp: Type[ComponentProtocol]) -> str:
-        execute_return_type = comp.execute.__annotations__.get("return")
         comp_run = "comp.execute()"
-        if execute_return_type is not None:
+        if cls.exe_return(comp) is not None:
             comp_run = "return comp.execute()"
         return comp_run
+
+    @classmethod
+    def exe_return(cls, comp: Type[ComponentProtocol]) -> Any:
+        execute_return_type = comp.execute.__annotations__.get("return")
+        return execute_return_type
 
     @staticmethod
     def get_func_params(comp_vars: Dict[dataclasses.Field, Any], with_typing: bool = True) -> List[str]:
@@ -53,7 +61,10 @@ class FunctionParser:
         fields = dataclasses.fields(component)  # type: ignore
         ins_vars = dict()
         for field in fields:
-            ins_vars[field] = getattr(component, field.name)
+            field_defaults = field.default if not field.default == dataclasses.MISSING else None
+            field_has_default_factory = field.default_factory == dataclasses.MISSING
+            field_defaults = field.default_factory() if not field_has_default_factory and field_defaults else None  # type: ignore
+            ins_vars[field] = field_defaults
 
         return ins_vars
 
