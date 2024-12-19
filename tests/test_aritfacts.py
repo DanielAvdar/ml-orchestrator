@@ -1,7 +1,7 @@
-import ml_orchestrator.artifacts as moa
-
 import kfp.dsl as dsl
 import pytest
+
+import ml_orchestrator.artifacts as moa
 
 
 @pytest.mark.parametrize(

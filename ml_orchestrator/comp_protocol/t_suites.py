@@ -1,10 +1,10 @@
 import abc
 from typing import Any
 
+import pytest
+
 from .comp_protocol import ComponentProtocol
 from .func_parser import FunctionParser
-
-import pytest
 
 
 class ProtocolCompSuite(abc.ABC):

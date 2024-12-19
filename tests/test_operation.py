@@ -1,8 +1,8 @@
+import pytest
+
 from dummy_components.dummy_components import ComponentTestB
 from ml_orchestrator.comp_parser import ComponentParser
 from ml_orchestrator.env_params import EnvironmentParams
-
-import pytest
 
 params = dict(
     base_image="base_image",
