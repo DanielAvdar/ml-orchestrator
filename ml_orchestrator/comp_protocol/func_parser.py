@@ -28,8 +28,8 @@ class FunctionParser:
     def get_function_parts(self, comp_class: Type[ComponentProtocol]) -> Tuple[str, str]:
         component_variables = self.comp_vars(comp_class)
         kfp_func_name = comp_class.__name__.lower()
-        func_scope = "(\n\t" + ",\n\t".join(self.get_func_params(component_variables)) + "\n)"
-        comp_scope = "(\n\t\t" + ",\n\t\t".join(self.get_comp_params(component_variables)) + "\n\t)"
+        func_scope = "(\n\t" + ",\n\t".join(self.get_func_params(component_variables)) + ",\n)"
+        comp_scope = "(\n\t\t" + ",\n\t\t".join(self.get_comp_params(component_variables)) + ",\n\t)"
         return_type = ""
         if self.exe_return(comp_class) is not None:
             return_type = f" -> {self.exe_return(comp_class).__name__}"
