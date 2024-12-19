@@ -4,7 +4,7 @@ from typing import List
 from ml_orchestrator.comp_protocol.comp_protocol import ComponentProtocol
 from ml_orchestrator.comp_protocol.func_parser import FunctionParser
 from ml_orchestrator.env_params import EnvironmentParams
-from ml_orchestrator.meta_comp import MetaComponent, MetaComponentV2
+from ml_orchestrator.meta_comp import MetaComponent, MetaComponentV2, _MetaComponent
 
 
 @dataclasses.dataclass
@@ -36,7 +36,7 @@ class ComponentParser(FunctionParser):
     def _get_decorator_override_params(prams: List[str]) -> List[str]:
         return [p for p in prams if "None" not in p]
 
-    def create_kfp_str(self, component: MetaComponentV2 | MetaComponent) -> str:  # type: ignore
+    def create_kfp_str(self, component: _MetaComponent) -> str:  # type: ignore
         function_str = super().create_kfp_str(component)  # type: ignore
         if self.only_function:
             return function_str
