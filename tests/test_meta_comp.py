@@ -1,6 +1,6 @@
-from dummy_components.dummy_components import ComponentTestA, ComponentTestB
-
 import pytest
+
+from dummy_components.dummy_components import ComponentTestA, ComponentTestB
 
 
 @pytest.mark.skip

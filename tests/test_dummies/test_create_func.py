@@ -3,9 +3,14 @@ from ml_orchestrator.comp_protocol.func_parser import IMPORT_COMPOUND, FunctionP
 
 def test_get_class(dummy_component_class):
     fp = FunctionParser()
-    inst = dummy_component_class()
-    assert fp.get_class_def(inst) == dummy_component_class
+
     assert fp.get_class_def(dummy_component_class) == dummy_component_class
+
+
+def test_get_class_cons(dummy_component_class_):
+    fp = FunctionParser()
+    inst = dummy_component_class_()
+    assert fp.get_class_def(inst) == dummy_component_class_
 
 
 def test_class(dummy_component_class):

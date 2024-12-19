@@ -52,21 +52,39 @@ class FunctionParser:
 
     @staticmethod
     def get_func_params(comp_vars: Dict[dataclasses.Field, Any], with_typing: bool = True) -> List[str]:
-        return [
-            get_param_meta_data_str(*get_param_meta_data(k, v), with_typing=with_typing) for k, v in comp_vars.items()
+        with_defaults = {k: v for k, v in comp_vars.items() if v is not dataclasses.MISSING}
+        without_defaults = {k: v for k, v in comp_vars.items() if v is dataclasses.MISSING}
+
+        func_params_with = [
+            get_param_meta_data_str(*get_param_meta_data(k, v), with_typing=with_typing)
+            for k, v in with_defaults.items()
         ]
+        func_params_without = [
+            get_param_meta_data_str(*get_param_meta_data(k, v), with_typing=with_typing)
+            for k, v in without_defaults.items()
+        ]
+        func_params = func_params_without + func_params_with
+
+        return func_params
 
     @classmethod
     def comp_vars(cls, component: Type[ComponentProtocol]) -> Dict[dataclasses.Field, Any]:
         fields = dataclasses.fields(component)  # type: ignore
         ins_vars = dict()
         for field in fields:
-            field_defaults = field.default if not field.default == dataclasses.MISSING else None
-            field_has_default_factory = field.default_factory == dataclasses.MISSING
-            field_defaults = field.default_factory() if not field_has_default_factory and field_defaults else None  # type: ignore
+            field_defaults = cls.parse_field_default(field)
             ins_vars[field] = field_defaults
 
         return ins_vars
+
+    @classmethod
+    def parse_field_default(cls, field: dataclasses.Field) -> Any:
+        field_defaults = field.default if not field.default == dataclasses.MISSING else None
+        field_has_default_factory = field.default_factory != dataclasses.MISSING
+        field_defaults = field.default_factory() if field_has_default_factory else field_defaults  # type: ignore
+        is_missing = {dataclasses.MISSING} == {field.default, field.default_factory}
+        field_defaults = dataclasses.MISSING if is_missing else field_defaults
+        return field_defaults
 
     @staticmethod
     def get_comp_params(comp_vars: Dict[dataclasses.Field, Any]) -> List[str]:
