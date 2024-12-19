@@ -1,3 +1,4 @@
+import dataclasses
 from dataclasses import field
 
 import pytest
@@ -10,7 +11,7 @@ from ml_orchestrator import FunctionParser
     [
         (field(default=42), 42),
         (field(default_factory=lambda: "test"), "test"),
-        (field(), None),
+        (field(), dataclasses.MISSING),
         (field(default=None), None),
         (field(default_factory=lambda: None), None),
         (field(default_factory=lambda: 42), 42),

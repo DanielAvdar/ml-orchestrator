@@ -63,7 +63,7 @@ class FunctionParser:
             get_param_meta_data_str(*get_param_meta_data(k, v), with_typing=with_typing)
             for k, v in without_defaults.items()
         ]
-        func_params = func_params_with + func_params_without
+        func_params = func_params_without + func_params_with
 
         return func_params
 
@@ -82,7 +82,8 @@ class FunctionParser:
         field_defaults = field.default if not field.default == dataclasses.MISSING else None
         field_has_default_factory = field.default_factory != dataclasses.MISSING
         field_defaults = field.default_factory() if field_has_default_factory else field_defaults  # type: ignore
-        # field_defaults = field_defaults if is_missing else dataclasses.MISSING
+        is_missing = {dataclasses.MISSING} == {field.default, field.default_factory}
+        field_defaults = dataclasses.MISSING if is_missing else field_defaults
         return field_defaults
 
     @staticmethod

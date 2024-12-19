@@ -55,3 +55,20 @@ class ComponentTestC2(ComponentTestB):
 class ComponentTestC3(ComponentTestB):
     def execute(self) -> bool:  # type: ignore
         return False
+
+
+@dataclasses.dataclass(unsafe_hash=True)
+class ComponentWithMandatoryParam:
+    param_mandatory_int: int
+
+    def execute(self) -> None:
+        pass
+
+
+@dataclasses.dataclass(unsafe_hash=True)
+class ComponentWithMandatoryParamB(ComponentWithMandatoryParam):
+    param_mandatory_str: str
+    param_mandatory_list: List[int]
+    param_mandatory_list_2: List[int] = dataclasses.field(default_factory=list)
+
+    param_2: str = "1"

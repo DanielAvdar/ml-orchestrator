@@ -29,12 +29,12 @@ def get_param_meta_data(field: dataclasses.Field, value: Any) -> Tuple[str, str,
 
 
 def get_param_meta_data_str(name: str, field_type: str, value: Any, with_typing: bool = True) -> str:
-    if field_type == "str":
-        value = f'"{value}"'
-
+    md_str = f"{name}"
     if with_typing:
-        md_str = f"{name}: {field_type} = {value}"
-    else:
-        md_str = f"{name} = {value}"
+        md_str = f"{md_str}: {field_type}"
+    if value is not dataclasses.MISSING:
+        if field_type == "str":
+            value = f'"{value}"'
+        md_str += f" = {value}"
 
     return md_str

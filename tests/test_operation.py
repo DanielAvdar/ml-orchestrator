@@ -59,3 +59,4 @@ def test_dec_op():
         parsed = ComponentParser.convert_to_format_str(str(v))
         assert parsed in str_func
         assert k in str_func
+    assert ":" not in str_func
