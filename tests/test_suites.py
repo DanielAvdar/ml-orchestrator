@@ -1,6 +1,6 @@
-from ml_orchestrator.comp_protocol.t_suites import ProtocolCompSuite
-
 import pytest
+
+from ml_orchestrator.comp_protocol.t_suites import ProtocolCompSuite
 
 
 class TestProtocolCompSuite(ProtocolCompSuite):

@@ -1,8 +1,8 @@
 from pathlib import Path
 
-from dummy_components.dummy_components import ComponentTestA, ComponentTestB
-
 import pytest
+
+from dummy_components.dummy_components import ComponentTestA, ComponentTestB
 
 
 def test_write_to_file_base(fp, dummy_component_class, tmp_files_folder):

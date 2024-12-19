@@ -1,13 +1,13 @@
 import shutil
 from pathlib import Path
 
+import pytest
+
 import dummy_components.dummy_components as dcomps
 import dummy_components.invalid_protocol_components as ipcomps
 import dummy_components.protocol_components as pcomps
 from ml_orchestrator import ComponentParser
 from ml_orchestrator.comp_protocol.func_parser import FunctionParser
-
-import pytest
 
 
 @pytest.fixture(params=[True, False])

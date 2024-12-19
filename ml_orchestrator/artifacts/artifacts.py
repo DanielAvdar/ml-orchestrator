@@ -1,6 +1,8 @@
-from typing import Dict, Optional
+from typing import Dict, Optional, Union
 
 from ml_orchestrator.artifacts import Artifact
+
+MetricTypes = Union[int, float, bool, str]
 
 
 class Model(Artifact):
@@ -28,7 +30,7 @@ class Markdown(Artifact):
 class Metrics(Artifact):
     schema_title = "system.Metrics"
 
-    def log_metric(self, metric: str, value: float) -> None:
+    def log_metric(self, metric: str, value: MetricTypes) -> None:
         assert isinstance(value, (int, float, bool, str)), f"Type {type(value)} is not a valid metric value"
         assert isinstance(metric, str), f"Type {type(metric)} is not a valid metric name"
         self.metadata[metric] = value
