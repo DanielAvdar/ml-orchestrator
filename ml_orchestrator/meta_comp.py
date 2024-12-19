@@ -6,7 +6,7 @@ from ml_orchestrator.env_params import EnvironmentParams
 
 
 @dataclasses.dataclass
-class MetaComponent(abc.ABC):
+class _MetaComponent(abc.ABC):
     @abc.abstractmethod
     def execute(
         self,
@@ -24,6 +24,20 @@ class MetaComponent(abc.ABC):
 
         return ins_vars
 
+
+@dataclasses.dataclass
+class MetaComponent(_MetaComponent):
     @property
     def env(self) -> EnvironmentParams:
+        return EnvironmentParams()
+
+    @classmethod
+    def kfp_func_name(cls) -> str:
+        return cls.__name__.lower()
+
+
+@dataclasses.dataclass
+class MetaComponentV2(_MetaComponent):
+    @classmethod
+    def env(cls) -> EnvironmentParams:
         return EnvironmentParams()

@@ -45,13 +45,13 @@ def test_fun_op(only_function):
 
 
 def test_dec_op():
-    str_func = ComponentParser.create_decorator(EnvironmentParams())
+    str_func = ComponentParser._create_decorator(EnvironmentParams())
 
     assert "None" not in str_func
     assert "@component" in str_func
     assert "(\n\t\n)" in str_func
 
-    str_func = ComponentParser.create_decorator(EnvironmentParams(**params))
+    str_func = ComponentParser._create_decorator(EnvironmentParams(**params))
 
     assert "(\n\t\n)" not in str_func and "()" not in str_func
     assert "None" not in str_func
