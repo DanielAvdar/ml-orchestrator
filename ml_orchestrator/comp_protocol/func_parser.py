@@ -82,8 +82,7 @@ class FunctionParser:
         field_defaults = field.default if not field.default == dataclasses.MISSING else None
         field_has_default_factory = field.default_factory != dataclasses.MISSING
         field_defaults = field.default_factory() if field_has_default_factory else field_defaults  # type: ignore
-        is_missing = {dataclasses.MISSING} == {field.default, field.default_factory}
-        field_defaults = field_defaults if is_missing else dataclasses.MISSING
+        # field_defaults = field_defaults if is_missing else dataclasses.MISSING
         return field_defaults
 
     @staticmethod
