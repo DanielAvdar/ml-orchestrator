@@ -3,25 +3,8 @@ from pathlib import Path
 
 import pytest
 
-import dummy_components.dummy_components as dcomps
-import dummy_components.protocol_components as pcomps
 from ml_orchestrator import ComponentParser
 from ml_orchestrator.comp_protocol.func_parser import FunctionParser
-
-valid_classes = [
-    dcomps.ComponentTestB,
-    dcomps.ComponentTestA,
-    dcomps.ComponentTestC,
-    dcomps.ComponentTestC2,
-    dcomps.ComponentTestC3,
-    dcomps.ComponentTestD,
-    dcomps.ComponentTestD2,
-    pcomps.ComponentTestB,
-    pcomps.ComponentTestA,
-    pcomps.ComponentTestC,
-    pcomps.ComponentTestC2,
-    pcomps.ComponentTestC3,
-]
 
 
 @pytest.fixture(params=[True, False])
