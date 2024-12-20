@@ -4,7 +4,7 @@ from typing import List
 from ml_orchestrator.comp_protocol.comp_protocol import ComponentProtocol
 from ml_orchestrator.comp_protocol.func_parser import FunctionParser
 from ml_orchestrator.env_params import EnvironmentParams
-from ml_orchestrator.meta_comp import MetaComponent, MetaComponentV2, _MetaComponent
+from ml_orchestrator.meta_comp import MetaComponent, _MetaComponent
 
 
 @dataclasses.dataclass
@@ -24,7 +24,9 @@ class ComponentParser(FunctionParser):
 
     @classmethod
     def create_decorator(cls, component: MetaComponent) -> str:
-        return cls._create_decorator(component.env)
+        if isinstance(component, MetaComponent):
+            return cls._create_decorator(component.env)
+        return cls._create_decorator(component.env())
 
     @staticmethod
     def convert_to_format_str(text: str) -> str:
@@ -55,10 +57,3 @@ class ComponentParser(FunctionParser):
         for imp in self.add_imports:
             file_content = f"{imp}\n{file_content}"
         return super().write_to_file(filename, file_content)
-
-
-@dataclasses.dataclass
-class ComponentParserV2(ComponentParser):
-    @classmethod
-    def create_decorator(cls, component: MetaComponentV2) -> str:  # type: ignore
-        return cls._create_decorator(component.env())

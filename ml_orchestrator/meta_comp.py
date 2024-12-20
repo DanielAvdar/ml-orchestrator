@@ -39,5 +39,6 @@ class MetaComponent(_MetaComponent):
 @dataclasses.dataclass
 class MetaComponentV2(_MetaComponent):
     @classmethod
+    @abc.abstractmethod
     def env(cls) -> EnvironmentParams:
         return EnvironmentParams()
