@@ -13,4 +13,4 @@ test:
 check:
 	poetry run pre-commit run --all-files
 mypy:
-	poetry run mypy . --config-file pyproject.toml
+	poetry run mypy ml_orchestrator --config-file pyproject.toml

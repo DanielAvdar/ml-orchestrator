@@ -6,6 +6,7 @@ from dummy_components import (
 )
 
 valid_classes_meta = [
+    dcomps.MetaComponentTest,
     dcomps.ComponentTestB,
     dcomps.ComponentTestA,
     dcomps.ComponentTestC,
@@ -15,6 +16,7 @@ valid_classes_meta = [
     dcomps.ComponentTestD2,
 ]
 valid_classes_meta_v2 = [
+    dv2comps.MetaComponentTest,
     dv2comps.ComponentTestB,
     dv2comps.ComponentTestA,
     dv2comps.ComponentTestC,

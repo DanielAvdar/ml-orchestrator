@@ -28,8 +28,10 @@ class FunctionParser:
     def get_function_parts(self, comp_class: Type[ComponentProtocol]) -> Tuple[str, str]:
         component_variables = self.comp_vars(comp_class)
         kfp_func_name = comp_class.__name__.lower()
-        func_scope = "(\n\t" + ",\n\t".join(self.get_func_params(component_variables)) + ",\n)"
-        comp_scope = "(\n\t\t" + ",\n\t\t".join(self.get_comp_params(component_variables)) + ",\n\t)"
+        func_params = self.get_func_params(component_variables)
+        comp_params = self.get_comp_params(component_variables)
+        func_scope = "(\n\t" + ",\n\t".join(func_params) + (",\n)" if func_params else ")")
+        comp_scope = "(\n\t\t" + ",\n\t\t".join(comp_params) + (",\n\t)" if comp_params else ")")
         return_type = ""
         if self.exe_return(comp_class) is not None:
             return_type = f" -> {self.exe_return(comp_class).__name__}"
@@ -106,6 +108,10 @@ class FunctionParser:
 
         file_content = f"{IMPORT_COMPOUND}\n\n\n{kfp_str}"
         return file_content
+
+    def parse_components_to_file(self, components: List[ComponentProtocol], filename: str) -> None:
+        kfp_str = self.create_kfp_file_str(components)
+        self.write_to_file(filename, kfp_str)
 
     def write_to_file(self, filename: str, file_content: str) -> None:
         file_content = f"# flake8: noqa: F403, F405, B006\n{file_content}"

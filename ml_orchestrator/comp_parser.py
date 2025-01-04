@@ -1,7 +1,6 @@
 import dataclasses
 from typing import List
 
-from ml_orchestrator.comp_protocol.comp_protocol import ComponentProtocol
 from ml_orchestrator.comp_protocol.func_parser import FunctionParser
 from ml_orchestrator.env_params import EnvironmentParams
 from ml_orchestrator.meta_comp import MetaComponent, _MetaComponent
@@ -48,10 +47,6 @@ class ComponentParser(FunctionParser):
         kfp_component_str = f"{decorator_str}\n{function_str}"
         kfp_component_str = kfp_component_str.replace("\t", "    ")
         return kfp_component_str + "\n"
-
-    def parse_components_to_file(self, components: List[ComponentProtocol], filename: str) -> None:
-        kfp_str = self.create_kfp_file_str(components)
-        self.write_to_file(filename, kfp_str)
 
     def write_to_file(self, filename: str, file_content: str) -> None:
         for imp in self.add_imports:
