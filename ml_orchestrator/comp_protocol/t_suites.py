@@ -18,7 +18,7 @@ class ProtocolCompSuite(abc.ABC):
     def test_comp_protocol_attrs(self, comp_fixture: ComponentProtocol) -> None:
         fp = FunctionParser()
         comp_vars = fp.comp_vars(comp_fixture)  # type: ignore
-        num_init_params = len(comp_fixture.__init__.__code__.co_varnames) - 1
+        num_init_params = len(comp_fixture.__init__.__code__.co_varnames) - 1  # type: ignore
         func_params = fp.get_func_params(comp_vars)
 
         assert comp_vars if num_init_params > 0 else not comp_vars
