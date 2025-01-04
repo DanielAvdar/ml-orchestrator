@@ -107,6 +107,10 @@ class FunctionParser:
         file_content = f"{IMPORT_COMPOUND}\n\n\n{kfp_str}"
         return file_content
 
+    def parse_components_to_file(self, components: List[ComponentProtocol], filename: str) -> None:
+        kfp_str = self.create_kfp_file_str(components)
+        self.write_to_file(filename, kfp_str)
+
     def write_to_file(self, filename: str, file_content: str) -> None:
         file_content = f"# flake8: noqa: F403, F405, B006\n{file_content}"
         with open(filename, "w", encoding="utf-8") as f:
