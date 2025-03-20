@@ -23,5 +23,6 @@ def test_class(dummy_component_class):
 def test_instances(dummy_component):
     fp = FunctionParser()
     comp_function = fp.create_function(dummy_component)
-    comp_function_with_imports = IMPORT_COMPOUND + "\n" + comp_function
+    fun_to_run = comp_function.split(" ")[1].split("(")[0] + "()"
+    comp_function_with_imports = IMPORT_COMPOUND + "\n" + comp_function + "\n" + fun_to_run
     exec(comp_function_with_imports)

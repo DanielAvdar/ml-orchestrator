@@ -8,6 +8,10 @@ from ml_orchestrator.meta_comp import MetaComponent
 
 @dataclass
 class MetaComponentTest(MetaComponent):
+    internal_param: int = field(
+        init=False,
+    )
+
     def execute(self) -> None:
         pass
 

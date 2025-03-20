@@ -74,6 +74,8 @@ class FunctionParser:
         fields = dataclasses.fields(component)  # type: ignore
         ins_vars = dict()
         for field in fields:
+            if not field.init:
+                continue
             field_defaults = cls.parse_field_default(field)
             ins_vars[field] = field_defaults
 

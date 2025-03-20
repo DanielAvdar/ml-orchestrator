@@ -7,6 +7,10 @@ from ml_orchestrator.artifacts import Dataset, Input, Metrics, Model, Output
 
 @dataclasses.dataclass(unsafe_hash=True)
 class MetaComponentTest:
+    internal_param: int = dataclasses.field(
+        init=False,
+    )
+
     def execute(self) -> None:
         pass
 
