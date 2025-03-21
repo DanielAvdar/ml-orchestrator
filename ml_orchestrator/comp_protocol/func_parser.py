@@ -27,7 +27,7 @@ class FunctionParser:
 
     def get_function_parts(self, comp_class: Type[ComponentProtocol]) -> Tuple[str, str]:
         component_variables = self.comp_vars(comp_class)
-        kfp_func_name = comp_class.__name__.lower()
+        kfp_func_name = self.comp_func_name(comp_class)
         func_params = self.get_func_params(component_variables)
         comp_params = self.get_comp_params(component_variables)
         func_scope = "(\n\t" + ",\n\t".join(func_params) + (",\n)" if func_params else ")")
@@ -39,6 +39,18 @@ class FunctionParser:
         func_definition = f"def {kfp_func_name}{func_scope}{return_type}:"
         comp_init = f"comp = {comp_class.__name__}{comp_scope}"
         return comp_init, func_definition
+
+    def comp_func_name(self, comp_class: Type[ComponentProtocol]) -> str:
+        if hasattr(comp_class, "kfp_func_name"):
+            return comp_class.kfp_func_name()
+        capital_indexes = [i for i, c in enumerate(comp_class.__name__) if c.isupper()]
+        func_name = comp_class.__name__.lower()
+        if not capital_indexes:
+            return func_name
+        new_func_name = ""
+        for i, letter in enumerate(func_name):
+            new_func_name += "_" + letter if (i in capital_indexes and i) else letter
+        return new_func_name
 
     @classmethod
     def comp_execute(cls, comp: Type[ComponentProtocol]) -> str:
