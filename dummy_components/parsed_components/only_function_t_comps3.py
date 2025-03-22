@@ -1,17 +1,9 @@
 # flake8: noqa: F403, F405, B006
+from ml_orchestrator import MetaComponent  # noqa
+from kfp.dsl import *
 from typing import *
 
-from kfp.dsl import *
 
-
-@component(
-    base_image="base_image",
-    target_image="target_image",
-    packages_to_install=["packages_to_install", "", f"sd''{d}"],
-    pip_index_urls=["pip_index_urls"],
-    install_kfp_package=True,
-    kfp_package_path="kfp_package_path",
-)
 def componenttestb(
     param_1: int = 1,
     param_2: str = "1",
@@ -39,7 +31,6 @@ def componenttestb(
     comp.execute()
 
 
-@component()
 def componenttesta(
     param_1: int = 1,
     param_2: str = "1",
