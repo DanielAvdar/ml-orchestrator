@@ -25,8 +25,17 @@ def test_directory() -> Path:
 
 
 @pytest.fixture(scope="session")
-def tmp_files_folder(test_directory) -> Path:
-    folder_path = test_directory / "tmp_folder_for_tests"
+def write_files_folder(test_directory) -> Path:
+    folder_path = test_directory.parent / "dummy_components/parsed_components"
+    if folder_path.exists():
+        shutil.rmtree(folder_path)
+    folder_path.mkdir()
+    return folder_path
+
+
+@pytest.fixture(scope="session")
+def write_dummies_files_folder(write_files_folder) -> Path:
+    folder_path = write_files_folder / "parsed_dummies_components"
     if folder_path.exists():
         shutil.rmtree(folder_path)
     folder_path.mkdir()
