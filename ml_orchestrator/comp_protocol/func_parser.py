@@ -5,50 +5,16 @@ from ml_orchestrator.utils.field_utils import get_param_meta_data, get_param_met
 
 from .comp_protocol import ComponentProtocol
 
-IMPORT_COMPOUND = "from kfp.dsl import *\nfrom typing import *\nfrom importlib.metadata import version\n"
-
 
 @dataclasses.dataclass
-class FunctionParser:
+class _FunctionParser:
+    dsl_imports = "from kfp.dsl import *\nfrom typing import *\nfrom importlib.metadata import version\n"
+
     @classmethod
     def get_class_def(cls, component: Union[type, ComponentProtocol]) -> type:
         is_class_def = isinstance(component, type)
         com_class = component if is_class_def else component.__class__
         return com_class  # type: ignore
-
-    def create_function(self, component: ComponentProtocol) -> str:
-        comp_class = self.get_class_def(component)
-        comp_init, func_definition = self.get_function_parts(comp_class)
-        import_compound = f"from {comp_class.__module__} import {comp_class.__name__}"
-        comp_run = self.comp_execute(comp_class)
-        str_func_body = "\n\t".join([import_compound, comp_init, comp_run])
-        str_func = func_definition + "\n\t" + str_func_body
-        return str_func
-
-    def get_function_parts(self, comp_class: Type[ComponentProtocol]) -> Tuple[str, str]:
-        component_variables = self.comp_vars(comp_class)
-        kfp_func_name = self.comp_func_name(comp_class)
-        func_params = self.get_func_params(component_variables)
-        comp_params = self.get_comp_params(component_variables)
-        func_scope = "(\n\t" + ",\n\t".join(func_params) + (",\n)" if func_params else ")")
-        comp_scope = "(\n\t\t" + ",\n\t\t".join(comp_params) + (",\n\t)" if comp_params else ")")
-        return_type = ""
-        if self.exe_return(comp_class) is not None:
-            return_type = f" -> {self.exe_return(comp_class).__name__}"
-
-        func_definition = f"def {kfp_func_name}{func_scope}{return_type}:"
-        comp_init = f"comp = {comp_class.__name__}{comp_scope}"
-        return comp_init, func_definition
-
-    def comp_func_name(self, comp_class: Type[ComponentProtocol]) -> str:
-        if hasattr(comp_class, "kfp_func_name"):
-            return comp_class.kfp_func_name()
-        capital_indexes = [i for i, c in enumerate(comp_class.__name__) if c.isupper()]
-        func_name = comp_class.__name__.lower()
-        new_func_name = ""
-        for i, letter in enumerate(func_name):
-            new_func_name += "_" + letter if (i in capital_indexes and i) else letter
-        return new_func_name
 
     @classmethod
     def comp_execute(cls, comp: Type[ComponentProtocol]) -> str:
@@ -104,10 +70,62 @@ class FunctionParser:
     def get_comp_params(comp_vars: Dict[dataclasses.Field, Any]) -> List[str]:
         return [f"{k.name}={k.name}" for k, v in comp_vars.items()]
 
-    def create_kfp_str(self, component: ComponentProtocol) -> str:
-        function_str = self.create_function(component)
-        return function_str
+    @classmethod
+    def create_function(cls, component: ComponentProtocol) -> str:
+        comp_class = cls.get_class_def(component)
+        comp_init, func_definition = cls.get_function_parts(comp_class)
+        import_compound = f"from {comp_class.__module__} import {comp_class.__name__}"
+        comp_run = cls.comp_execute(comp_class)
+        str_func_body = "\n\t".join([import_compound, comp_init, comp_run])
+        str_func = func_definition + "\n\t" + str_func_body
+        return str_func
 
+    @classmethod
+    def get_function_parts(cls, comp_class: Type[ComponentProtocol]) -> Tuple[str, str]:
+        component_variables = cls.comp_vars(comp_class)
+        kfp_func_name = cls.comp_func_name(comp_class)
+        func_params = cls.get_func_params(component_variables)
+        comp_params = cls.get_comp_params(component_variables)
+        func_scope = "(\n\t" + ",\n\t".join(func_params) + (",\n)" if func_params else ")")
+        comp_scope = "(\n\t\t" + ",\n\t\t".join(comp_params) + (",\n\t)" if comp_params else ")")
+        return_type = ""
+        if cls.exe_return(comp_class) is not None:
+            return_type = f" -> {cls.exe_return(comp_class).__name__}"
+
+        func_definition = f"def {kfp_func_name}{func_scope}{return_type}:"
+        comp_init = f"comp = {comp_class.__name__}{comp_scope}"
+        return comp_init, func_definition
+
+    @classmethod
+    def comp_func_name(cls, comp_class: Type[ComponentProtocol]) -> str:
+        if hasattr(comp_class, "kfp_func_name"):
+            return comp_class.kfp_func_name()
+        func_name = comp_class.__name__
+        new_func_name = cls._comp_func_name(func_name)
+        return new_func_name
+
+    @classmethod
+    def _comp_func_name(cls, func_name: str) -> str:
+        func_name_lower = func_name.lower()
+        capital_indexes = [i for i, c in enumerate(func_name) if c.isupper()]
+        new_func_name = ""
+        for i, letter in enumerate(func_name_lower):
+            new_func_name += "_" + letter if (i in capital_indexes and i) else letter
+        return new_func_name
+
+    @staticmethod
+    def convert_to_format_str(text: str) -> str:
+        new_text = text.replace(", '", ", f'").replace("['", "[f'")
+        new_text = new_text.replace(', "', ', f"').replace('["', '[f"')
+        return new_text
+
+    @staticmethod
+    def _get_decorator_override_params(prams: List[str]) -> List[str]:
+        return [p for p in prams if "None" not in p]
+
+
+@dataclasses.dataclass
+class FunctionParser(_FunctionParser):
     def create_kfp_file_str(
         self,
         components: List[ComponentProtocol],
@@ -118,12 +136,16 @@ class FunctionParser:
 
             kfp_str += "\n\n"
 
-        file_content = f"{IMPORT_COMPOUND}\n\n\n{kfp_str}"
+        file_content = f"{self.dsl_imports}\n\n\n{kfp_str}"
         return file_content
 
     def parse_components_to_file(self, components: List[ComponentProtocol], filename: str) -> None:
         kfp_str = self.create_kfp_file_str(components)
         self.write_to_file(filename, kfp_str)
+
+    def create_kfp_str(self, component: ComponentProtocol) -> str:
+        function_str = self.create_function(component)
+        return function_str
 
     def write_to_file(self, filename: str, file_content: str) -> None:
         file_content = f"# flake8: noqa: F403, F405, B006\n{file_content}"
