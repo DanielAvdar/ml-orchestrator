@@ -8,6 +8,10 @@ from ml_orchestrator.meta_comp import MetaComponentV2
 
 @dataclass
 class MetaComponentTest(MetaComponentV2):
+    internal_param: int = field(
+        init=False,
+    )
+
     def execute(self) -> None:
         pass
 
@@ -75,6 +79,8 @@ class ComponentTestD(ComponentTestB):
 @dataclass
 class ComponentTestD2V2(ComponentTestB):
     param_dict: dict = field(default_factory=dict)
+    param_dict_full: dict = field(default_factory=lambda: {"a": 1, "b": 2})
+    param_dict_nan: dict = field(default=None)
 
     def execute(self) -> None:
         pass

@@ -18,10 +18,7 @@ def get_artifact_type_string(field_type: Any) -> str:
 
 def get_param_meta_data(field: dataclasses.Field, value: Any) -> Tuple[str, str, Any]:
     name = field.name
-    try:
-        field_value = value
-    except TypeError:
-        field_value = None
+    field_value = value
     if callable(field.default_factory) and field_value is None:
         field_value = field.default_factory()
     field_type = get_artifact_type_string(field.type)

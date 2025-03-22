@@ -23,3 +23,4 @@ def test_create_kfp_decorator(dummy_meta_classes_all):
     assert "(" in dec_str
     assert ")" in dec_str
     assert "None" not in dec_str
+    assert "internal_param" not in dec_str

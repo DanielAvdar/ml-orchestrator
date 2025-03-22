@@ -14,10 +14,10 @@ class ComponentParser(FunctionParser):
     @classmethod
     def _create_decorator(cls, env: EnvironmentParams) -> str:
         dec_vars = env.comp_vars()
-        prams = ComponentParser.get_func_params(dec_vars, with_typing=False)
-        override_params = ComponentParser._get_decorator_override_params(prams)
+        prams = cls.get_func_params(dec_vars, with_typing=False)
+        override_params = cls._get_decorator_override_params(prams)
         dec_scope = "(\n\t" + ",\n\t".join(override_params) + "\n)"
-        dec_scope = ComponentParser.convert_to_format_str(dec_scope)
+        dec_scope = cls.convert_to_format_str(dec_scope)
         func_definition = f"@component{dec_scope}"
         return func_definition
 
@@ -26,16 +26,6 @@ class ComponentParser(FunctionParser):
         if isinstance(component, MetaComponent):
             return cls._create_decorator(component.env)
         return cls._create_decorator(component.env())
-
-    @staticmethod
-    def convert_to_format_str(text: str) -> str:
-        new_text = text.replace(", '", ", f'").replace("['", "[f'")
-        new_text = new_text.replace(', "', ', f"').replace('["', '[f"')
-        return new_text
-
-    @staticmethod
-    def _get_decorator_override_params(prams: List[str]) -> List[str]:
-        return [p for p in prams if "None" not in p]
 
     def create_kfp_str(self, component: _MetaComponent) -> str:  # type: ignore
         function_str = super().create_kfp_str(component)  # type: ignore

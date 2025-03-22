@@ -1,4 +1,4 @@
-from ml_orchestrator.comp_protocol.func_parser import IMPORT_COMPOUND, FunctionParser
+from ml_orchestrator.comp_protocol.func_parser import FunctionParser
 
 
 def test_get_class(dummy_component_class):
@@ -16,12 +16,13 @@ def test_get_class_cons(dummy_component_class_):
 def test_class(dummy_component_class):
     fp = FunctionParser()
     comp_function = fp.create_function(dummy_component_class)
-    comp_function_with_imports = IMPORT_COMPOUND + "\n" + comp_function
+    comp_function_with_imports = FunctionParser.dsl_imports + "\n" + comp_function
     exec(comp_function_with_imports)
 
 
 def test_instances(dummy_component):
     fp = FunctionParser()
     comp_function = fp.create_function(dummy_component)
-    comp_function_with_imports = IMPORT_COMPOUND + "\n" + comp_function
+    fun_to_run = comp_function.split(" ")[1].split("(")[0] + "()"
+    comp_function_with_imports = FunctionParser.dsl_imports + "\n" + comp_function + "\n" + fun_to_run
     exec(comp_function_with_imports)
