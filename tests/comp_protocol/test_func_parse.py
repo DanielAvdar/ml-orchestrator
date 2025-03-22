@@ -4,7 +4,7 @@ from dataclasses import field
 import pytest
 
 from ml_orchestrator import FunctionParser
-from ml_orchestrator.comp_protocol.func_parser import _FunctionParser
+from ml_orchestrator.comp_protocol.base_parser import _FunctionParser
 
 
 @pytest.mark.parametrize(
