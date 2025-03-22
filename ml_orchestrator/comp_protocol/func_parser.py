@@ -45,8 +45,6 @@ class FunctionParser:
             return comp_class.kfp_func_name()
         capital_indexes = [i for i, c in enumerate(comp_class.__name__) if c.isupper()]
         func_name = comp_class.__name__.lower()
-        if not capital_indexes:
-            return func_name
         new_func_name = ""
         for i, letter in enumerate(func_name):
             new_func_name += "_" + letter if (i in capital_indexes and i) else letter
