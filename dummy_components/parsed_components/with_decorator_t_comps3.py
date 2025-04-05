@@ -2,12 +2,13 @@
 from ml_orchestrator import MetaComponent  # noqa
 from kfp.dsl import *
 from typing import *
+from importlib.metadata import version
 
 
 @component(
     base_image="base_image",
     target_image="target_image",
-    packages_to_install=["packages_to_install", "", f"sd''{d}"],
+    packages_to_install=[f"ml-orchestrator=={version('ml-orchestrator')}"],
     pip_index_urls=["pip_index_urls"],
     install_kfp_package=True,
     kfp_package_path="kfp_package_path",

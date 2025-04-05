@@ -26,6 +26,10 @@ kfp  = ">=2.7.0"
 editor = ["kfp"]
 
 
+[tool.poetry.group.docs.dependencies]
+sphinx = ">=7.0.0"
+sphinx-rtd-theme = "^3.0.2"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
@@ -33,6 +37,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.ruff]
 line-length = 120
 include = [ "tests/**", "ml_orchestrator/**","dummy_components/**"]
+exclude = ["docs/**"]
 
 [tool.ruff.lint]
 select = ["F", "B", "I", "F", "W", "E", "A", "N"]

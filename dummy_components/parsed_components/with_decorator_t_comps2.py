@@ -1,4 +1,5 @@
 # flake8: noqa: F403, F405, B006
+from importlib.metadata import version
 from typing import *
 
 from kfp.dsl import *
@@ -7,7 +8,7 @@ from kfp.dsl import *
 @component(
     base_image="base_image",
     target_image="target_image",
-    packages_to_install=["packages_to_install", "", f"sd''{d}"],
+    packages_to_install=[f"ml-orchestrator=={version('ml-orchestrator')}"],
     pip_index_urls=["pip_index_urls"],
     install_kfp_package=True,
     kfp_package_path="kfp_package_path",
