@@ -41,23 +41,3 @@ html_theme = "sphinx_rtd_theme"
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_static_path = ["_static"]
-html_context = {
-   # ...
-   "default_mode": "dark",
-}
-# html_theme_options = {
-#         "pygments_dark_style ": True
-#
-# }
-pytest_collect_file = Sybil(
-    parsers=[
-        # This specifically targets .. code-block:: python
-        PythonCodeBlockParser(),
-        # Allows skipping blocks with .. doctest:: +SKIP or similar markers
-        SkipParser(),
-    ],
-    # Adjust pattern for your docs location and file type
-    pattern='docs/**/*.rst', # Example: find all .rst files in docs/ subdir
-    # pattern='*.md', # Example for Markdown files
-    # exclude='docs/some_file_to_ignore.rst' # Optional exclusion
-).pytest()
