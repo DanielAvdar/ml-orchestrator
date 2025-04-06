@@ -66,4 +66,3 @@ class MetaComponentV2(_MetaComponent):
         Returns:
             EnvironmentParams: The environment parameters specific to the implementing class.
         """
-        ...

@@ -9,6 +9,8 @@ install:
 
 test:
 	poetry run pytest
+cov:
+	poetry run pytest --cov=ml_orchestrator --cov-report=xml
 
 check:
 	poetry run pre-commit run --all-files

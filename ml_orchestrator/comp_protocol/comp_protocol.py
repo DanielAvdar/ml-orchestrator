@@ -24,7 +24,6 @@ class ComponentProtocol(Protocol):
         Returns:
             ComponentOutput: The result of the component's execution.
         """
-        ...
 
     def __dataclass_fields__(self) -> Any:
         """
@@ -33,4 +32,3 @@ class ComponentProtocol(Protocol):
         Returns:
             Any: Metadata or structure defining the dataclass fields.
         """
-        ...
