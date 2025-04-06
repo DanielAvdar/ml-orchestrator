@@ -9,8 +9,8 @@ install:
 
 test:
 	poetry run pytest
-cov:
-	poetry run pytest --cov=ml_orchestrator --cov-report=xml
+coverage:
+	poetry run pytest --cov=ml_orchestrator --cov-report=xml --junitxml=junit.xml -o junit_family=legacy
 
 check:
 	poetry run pre-commit run --all-files
