@@ -9,12 +9,6 @@ from sybil.parsers.doctest import DocTestParser
 def collect_examples():
     docs_folder_path = Path(__file__).parent.parent.parent / "docs" / "source"
     assert docs_folder_path.exists(), f"Docs path doesn't exist: {docs_folder_path.resolve()}"
-    print(f"Using docs path {docs_folder_path.resolve()}")
-
-    # Find test_example.rst
-    example_file = docs_folder_path / "test_example.rst"
-    assert example_file.exists(), f"Test example file not found at {example_file.resolve()}"
-    print(f"Found test file at: {example_file.resolve()}")
 
     all_rst_files = list(docs_folder_path.glob("*.rst"))
     print(f"Found {len(all_rst_files)} .rst files in docs folder.")

@@ -32,7 +32,6 @@ Here's an example to set up and define a simple pipeline component:
 
        def execute(self):
            print("Executing my component!")
-   assert False
 
 Features
 --------

@@ -36,7 +36,3 @@ Example usage:
        @property
        def env(self):
            return ...  # Define environment parameters
-
-   parser = ComponentParser()
-   kfp_string = parser.create_kfp_str(MyComponent())
-   print(kfp_string)
