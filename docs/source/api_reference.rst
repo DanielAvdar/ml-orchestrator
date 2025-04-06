@@ -1,4 +1,4 @@
-ml_orchestrator Module
+API Reference
 ======================
 
 .. automodule:: ml_orchestrator

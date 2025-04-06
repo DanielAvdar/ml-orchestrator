@@ -3,7 +3,7 @@
 default: install
 
 install:
-	poetry install --all-extras
+	poetry install --all-extras --all-groups
 #	poetry run pre-commit autoupdate
 	poetry run pre-commit install
 

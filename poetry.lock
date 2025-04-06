@@ -1429,6 +1429,26 @@ standalone = ["Sphinx (>=5)"]
 test = ["pytest"]
 
 [[package]]
+name = "sybil"
+version = "9.1.0"
+description = "Automated testing for the examples in your code and documentation."
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "sybil-9.1.0-py3-none-any.whl", hash = "sha256:7fe20074289bbb5f06dc7ad564dff4ffe42a678add7860345089a7b78125132a"},
+    {file = "sybil-9.1.0.tar.gz", hash = "sha256:c63c14c9843c62fa994c777eb48c0632f62be5c499ecbe05c1d130157ed6a6ca"},
+]
+
+[package.dependencies]
+pytest = {version = ">=8", optional = true, markers = "extra == \"pytest\""}
+
+[package.extras]
+docs = ["furo", "sphinx"]
+pytest = ["pytest (>=8)"]
+release = ["twine", "wheel"]
+test = ["mypy", "myst_parser", "pytest (>=8)", "pytest-cov", "seedir", "testfixtures", "types-PyYAML"]
+
+[[package]]
 name = "tabulate"
 version = "0.9.0"
 description = "Pretty-print tabular data"
@@ -1571,4 +1591,4 @@ editor = ["kfp"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<=3.13"
-content-hash = "555197277b471f6f9f3b7b39d2dde112280387a5611cba1f1d37f9ca95193751"
+content-hash = "aa2ad3aad8abf47d8a39a54c33801cd4888cc48c09001f8717fc47ecfeddab67"

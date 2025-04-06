@@ -40,3 +40,13 @@ def write_dummies_files_folder(write_files_folder) -> Path:
         shutil.rmtree(folder_path)
     folder_path.mkdir()
     return folder_path
+
+
+# @pytest.fixture(scope="session")
+# def docs_folder(test_directory) -> Path:
+#     folder_path = test_directory.parent / "docs"
+#     assert folder_path.exists()
+#     return folder_path
+
+docs_folder_path = Path(__file__).parent.parent / "docs" / "source"
+assert docs_folder_path.exists()
