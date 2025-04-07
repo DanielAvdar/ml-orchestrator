@@ -1,6 +1,6 @@
-name: PR tests
+name: Publish docs
 on:
-  pull_request:
+  pull_request: # todo remove this after testing
   release:
     types: [ published ]
   workflow_dispatch:

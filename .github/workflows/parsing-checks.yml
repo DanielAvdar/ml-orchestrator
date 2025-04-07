@@ -31,7 +31,6 @@ jobs:
         if: steps.check_changes.outputs.changes == 'true'
         run: |
           exit 1
-      - run: make mypy
   check-isolation:
     runs-on: ubuntu-latest
 

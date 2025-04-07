@@ -7,13 +7,15 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 import os
 import sys
+from importlib.metadata import version
 
 
 sys.path.insert(0, os.path.abspath("../../"))
 # sys.path.insert(0, os.path.abspath("./"))  # in conf.py
 
-
 project = "ml-orchestrator"
+version = version(project)
+release = version
 copyright = "2025, DanielAvdar"
 author = "DanielAvdar"
 
@@ -27,6 +29,7 @@ extensions = [
     "sphinx.ext.githubpages",  # If deploying to GitHub Pages
     "sphinx.ext.autodoc",
     'sphinx.ext.doctest',
+    'sphinx.ext.intersphinx'
 
 ]
 
