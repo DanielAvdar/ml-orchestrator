@@ -7,9 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 import os
 import sys
-from sybil import Sybil
-from sybil.parsers.rest import PythonCodeBlockParser, SkipParser # For .rst files
-import pytest
+
 
 sys.path.insert(0, os.path.abspath("../../"))
 # sys.path.insert(0, os.path.abspath("./"))  # in conf.py
