@@ -16,5 +16,5 @@ jobs:
 
       - run: poetry build
       - run: pip install dist/*.whl
-      - run: python -m main
+      - run: python -m dummy_components.check_imports
     continue-on-error: true
