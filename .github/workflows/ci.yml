@@ -40,5 +40,5 @@ jobs:
 
       - run: make
       - run: make doc
-#      - id: deployment
-#        uses: sphinx-notes/pages@v3
+      - id: deployment
+        uses: sphinx-notes/pages@v3
