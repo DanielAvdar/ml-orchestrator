@@ -29,4 +29,5 @@ jobs:
       - id: deployment
         uses: actions/deploy-pages@v4
         with:
-          path: docs/source/build
+          path: docs/source/
+          artifact_name: build
