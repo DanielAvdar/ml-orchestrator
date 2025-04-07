@@ -23,9 +23,9 @@ jobs:
     continue-on-error: true
   build-docs:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: danielavdar.github.io
+#    environment:
+#      name: github-pages
+#      url: danielavdar.github.io
 #    permissions:
 #      pages: write
 #      id-token: write
@@ -40,5 +40,5 @@ jobs:
 
       - run: make
       - run: make doc
-      - id: deployment
-        uses: sphinx-notes/pages@v3
+#      - id: deployment
+#        uses: sphinx-notes/pages@v3
