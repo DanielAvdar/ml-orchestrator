@@ -8,7 +8,7 @@ def test_write_to_file_base(fp, dummy_component_class, write_dummies_files_folde
     content = fp.create_kfp_file_str(components=[dummy_component_class])
     file_name = f"base_{comp_func_name}.py"
     file_path = write_dummies_files_folder / Path(file_name)
-    fp.write_to_file(file_path, content)
+    fp._write_to_file(file_path, content)
     with open(file_path, "r") as f:
         file_content = f.read()
     assert content in file_content

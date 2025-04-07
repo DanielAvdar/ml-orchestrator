@@ -39,9 +39,9 @@ def test_fun_op(only_function):
     assert "ComponentTestB(" in str_func
 
     if only_function:
-        assert str_func == op.create_kfp_str(component=component1)
+        assert str_func == op._create_kfp_str(component=component1)
     else:
-        assert str_func != op.create_kfp_str(component=component1)
+        assert str_func != op._create_kfp_str(component=component1)
 
 
 def test_dec_op():

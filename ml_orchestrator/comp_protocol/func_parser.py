@@ -21,7 +21,7 @@ class FunctionParser(_FunctionParser):
     ) -> str:
         kfp_str = ""
         for component in components:
-            kfp_str += self.create_kfp_str(component)
+            kfp_str += self._create_kfp_str(component)
 
             kfp_str += "\n\n"
 
@@ -45,38 +45,13 @@ class FunctionParser(_FunctionParser):
                  writing as a side effect.
         """
         kfp_str = self.create_kfp_file_str(components)
-        self.write_to_file(filename, kfp_str)
+        self._write_to_file(filename, kfp_str)
 
-    def create_kfp_str(self, component: ComponentProtocol) -> str:
-        """
-        Generates a string representation of a Kubeflow Pipelines (KFP) function from
-        the provided component object. The resulting string represents the translation
-        of the component into a format understandable by KFP.
-
-        :param component: The component object that implements the ComponentProtocol
-                          interface, serving as the input to generate the KFP function
-                          string.
-        :type component: ComponentProtocol
-        :return: A string representation of the KFP function derived from the provided
-                 component.
-        :rtype: str
-        """
+    def _create_kfp_str(self, component: ComponentProtocol) -> str:
         function_str = self.create_function(component)
         return function_str
 
-    def write_to_file(self, filename: str, file_content: str) -> None:
-        """
-        Writes content to a specified file with additional preamble for flake8 exclusions.
-
-        This method appends a preamble string, which disables specific linter rules
-        for flake8, to the given file content and writes the resulting string to the
-        file specified by the filename. The file will be saved with UTF-8 encoding.
-
-        :param filename: Name of the file to which the content will be written.
-        :param file_content: Content to be written to the file before appending
-            the preamble for flake8 exclusions.
-        :return: None
-        """
+    def _write_to_file(self, filename: str, file_content: str) -> None:
         file_content = f"# flake8: noqa: F403, F405, B006\n{file_content}"
         with open(filename, "w", encoding="utf-8") as f:
             f.write(file_content)

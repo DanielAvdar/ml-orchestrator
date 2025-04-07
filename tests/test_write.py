@@ -11,7 +11,7 @@ def test_write_to_file(op, comp, write_files_folder):
     prefix = "only_function" if op.only_function else "with_decorator"
     file_name = f"{prefix}_t_comps1.py"
     file_path = write_files_folder / Path(file_name)
-    op.write_to_file(file_path, content)
+    op._write_to_file(file_path, content)
     file_content = open(file_path, "r").read()
     assert content in file_content
     assert "from kfp.dsl import *" in file_content
