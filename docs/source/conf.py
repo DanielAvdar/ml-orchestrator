@@ -9,14 +9,13 @@ import os
 import sys
 from importlib.metadata import version
 
-
 sys.path.insert(0, os.path.abspath("../../"))
 # sys.path.insert(0, os.path.abspath("./"))  # in conf.py
 
 project = "ml-orchestrator"
 version = version(project)
 release = version
-copyright = "2025, DanielAvdar"
+copyright = "2025, DanielAvdar"  # noqa
 author = "DanielAvdar"
 
 # -- General configuration ---------------------------------------------------
@@ -28,9 +27,8 @@ extensions = [
     "sphinx.ext.viewcode",  # Add links to source code
     "sphinx.ext.githubpages",  # If deploying to GitHub Pages
     "sphinx.ext.autodoc",
-    'sphinx.ext.doctest',
-    'sphinx.ext.intersphinx'
-
+    "sphinx.ext.doctest",
+    "sphinx.ext.intersphinx",
 ]
 
 templates_path = ["_templates"]
