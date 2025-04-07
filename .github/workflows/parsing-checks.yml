@@ -1,10 +1,10 @@
-name: Code Quality
+name: Isolation tests
 
 on:
   pull_request:
   workflow_dispatch:
 jobs:
-  lint:
+  check-parsed-components:
     name: Components Parsing Check
     runs-on: ubuntu-latest
 
@@ -32,3 +32,18 @@ jobs:
         run: |
           exit 1
       - run: make mypy
+  check-isolation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - run: pipx install poetry
+      - run: poetry check
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: poetry build
+      - run: pip install dist/*.whl
+      - run: python -m dummy_components.check_imports
+    continue-on-error: true
