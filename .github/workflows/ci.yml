@@ -26,9 +26,9 @@ jobs:
     environment:
       name: github-pages
       url: danielavdar.github.io
-    permissions:
-      pages: write
-      id-token: write
+#    permissions:
+#      pages: write
+#      id-token: write
     steps:
       - uses: actions/checkout@v4
       - run: pipx install poetry
@@ -37,5 +37,8 @@ jobs:
         with:
           python-version: '3.11'
           cache: poetry
+
       - run: make
       - run: make doc
+      - id: deployment
+        uses: sphinx-notes/pages@v3
