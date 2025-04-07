@@ -23,6 +23,12 @@ jobs:
     continue-on-error: true
   build-docs:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - run: pipx install poetry
@@ -34,3 +40,5 @@ jobs:
 
       - run: make
       - run: make doc
+      - id: deployment
+        uses: sphinx-notes/pages@v3
