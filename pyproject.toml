@@ -29,7 +29,12 @@ editor = ["kfp"]
 
 
 [tool.poetry.group.docs.dependencies]
-sphinx = ">=7.0.0"
+#sphinx = ">=7.0.0"
+sphinx = [
+    { version = ">=8.2.0", markers = "python_version >= '3.11'" },
+    { version = ">=7.0.0", markers = "python_version < '3.11'" }
+]
+
 sphinx-rtd-theme = "^3.0.2"
 
 [build-system]
