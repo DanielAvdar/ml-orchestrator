@@ -1,0 +1,208 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ml_orchestrator.comp_parser &mdash; ml-orchestrator 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            ml-orchestrator
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../components.html">Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../environment.html">Environment Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing to ml-orchestrator</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ml-orchestrator</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">ml_orchestrator.comp_parser</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for ml_orchestrator.comp_parser</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">dataclasses</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ml_orchestrator.comp_protocol.func_parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">FunctionParser</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ml_orchestrator.env_params</span><span class="w"> </span><span class="kn">import</span> <span class="n">EnvironmentParams</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ml_orchestrator.meta_comp</span><span class="w"> </span><span class="kn">import</span> <span class="n">MetaComponent</span><span class="p">,</span> <span class="n">_MetaComponent</span>
+
+
+<div class="viewcode-block" id="ComponentParser">
+<a class="viewcode-back" href="../../api_reference.html#ml_orchestrator.ComponentParser">[docs]</a>
+<span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ComponentParser</span><span class="p">(</span><span class="n">FunctionParser</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A parser class that extends FunctionParser to create and manage components</span>
+<span class="sd">    for Kubeflow pipelines (KFP), including decorators and serialized representations.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        add_imports (List[str]): Additional import statements to prepend to output files.</span>
+<span class="sd">        only_function (bool): Whether to generate only the function body.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">add_imports</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[])</span>
+    <span class="n">only_function</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_decorator</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">EnvironmentParams</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a component decorator string based on environment parameters.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            env (EnvironmentParams): The environment parameters object containing variable definitions.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: A formatted string representing the component decorator.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dec_vars</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">comp_vars</span><span class="p">()</span>
+        <span class="n">prams</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_func_params</span><span class="p">(</span><span class="n">dec_vars</span><span class="p">,</span> <span class="n">with_typing</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">override_params</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_get_decorator_override_params</span><span class="p">(</span><span class="n">prams</span><span class="p">)</span>
+        <span class="n">dec_scope</span> <span class="o">=</span> <span class="s2">&quot;(</span><span class="se">\n\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;,</span><span class="se">\n\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">override_params</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">)&quot;</span>
+        <span class="n">dec_scope</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">convert_to_format_str</span><span class="p">(</span><span class="n">dec_scope</span><span class="p">)</span>
+        <span class="n">func_definition</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;@component</span><span class="si">{</span><span class="n">dec_scope</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">func_definition</span>
+
+<div class="viewcode-block" id="ComponentParser.create_decorator">
+<a class="viewcode-back" href="../../api_reference.html#ml_orchestrator.ComponentParser.create_decorator">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_decorator</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">component</span><span class="p">:</span> <span class="n">MetaComponent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a decorator string for a given MetaComponent.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            component (MetaComponent): The component object used to generate a decorator.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: A decorator string for use in Kubeflow components.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">component</span><span class="p">,</span> <span class="n">MetaComponent</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_create_decorator</span><span class="p">(</span><span class="n">component</span><span class="o">.</span><span class="n">env</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_create_decorator</span><span class="p">(</span><span class="n">component</span><span class="o">.</span><span class="n">env</span><span class="p">())</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_kfp_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component</span><span class="p">:</span> <span class="n">_MetaComponent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates a serialized Kubeflow Pipeline (KFP) component string.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            component (_MetaComponent): The component object to serialize.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: A string representation of the KFP component, including decorators.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">function_str</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_create_kfp_str</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">only_function</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">function_str</span>
+
+        <span class="n">decorator_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_decorator</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="n">decorator_str</span> <span class="o">=</span> <span class="n">decorator_str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; = &quot;</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">)</span>
+        <span class="n">kfp_component_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">decorator_str</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">function_str</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">kfp_component_str</span> <span class="o">=</span> <span class="n">kfp_component_str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;    &quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">kfp_component_str</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_write_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file_content</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes component string content to a file, including additional imports.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            filename (str): The name of the file to write to.</span>
+<span class="sd">            file_content (str): The content to write to the file.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">imp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_imports</span><span class="p">:</span>
+            <span class="n">file_content</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">imp</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">file_content</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_write_to_file</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">file_content</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, DanielAvdar.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
