@@ -20,17 +20,41 @@ This structured approach simplifies component management, enhances maintainabili
      - Original KFP
      - **ml-orchestrator**
    * - **Component Logic**
-     - Defined as part of the function.
-     - Defined within a dataclass.
+     - Defined as part of
+       the function.
+     - Defined within a
+       dataclass.
    * - **Import & Dependencies**
-     - Entire code resides inside the function.
-     - Assumes code is available from the environment.
+     - Entire code resides
+
+       inside the function.
+     - Assumes code is
+
+       available from the
+       environment.
    * - **Testability**
-     - Difficult to test; often requires a full pipeline run.
-     - Testable using standard Python tools like `unittest` or `pytest`.
+     - Difficult to test;
+
+       often requires a
+       full pipeline run.
+     - Easy to test;
+
+       testable with `unittest`
+       or `pytest`.
    * - **Commitment to KFP**
-     - Code is tightly coupled with KFP.
-     - Completely agnostic to KFP.
+     - Code is tightly
+       coupled with KFP.
+     - Completely agnostic
+       to KFP.
    * - **Flexibility**
-     - Function-based logic: non-inheritable, repetitive code and parameters.
-     - Dataclass-based logic: inheritable, reusable code and parameters.
+     - Function-based logic:
+
+       non-inheritable,
+
+       repetitive code and
+       parameters.
+     - Dataclass-based logic:
+
+       inheritable,
+
+       reusable code and parameters.
