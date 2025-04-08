@@ -27,17 +27,23 @@ jobs:
       - run: make
       - run: make doc
 
-      # Configure GitHub Pages
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      # Upload artifact
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: docs/build/html  # This is where Sphinx builds the HTML output
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/build
+          keep_files: true
 
-      # Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+#      # Configure GitHub Pages
+#      - name: Setup Pages
+#        uses: actions/configure-pages@v4
+#      # Upload artifact
+#      - name: Upload artifact
+#        uses: actions/upload-pages-artifact@v3
+#        with:
+#          path: docs/build/html  # This is where Sphinx builds the HTML output
+#
+#      # Deploy to GitHub Pages
+#      - name: Deploy to GitHub Pages
+#        id: deployment
+#        uses: actions/deploy-pages@v4
