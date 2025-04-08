@@ -1,4 +1,4 @@
-# define kfp component as dataclasses
+# Defining Kubeflow Pipeline (KFP) Components with Python Dataclasses
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ml-orchestrator)](https://pypi.org/project/ml-orchestrator/)
 [![version](https://img.shields.io/pypi/v/ml-orchestrator)](https://img.shields.io/pypi/v/ml-orchestrator)
@@ -11,12 +11,12 @@
 [![codecov](https://codecov.io/gh/DanielAvdar/ml-orchestrator/graph/badge.svg?token=N0V9KANTG2)](https://codecov.io/gh/DanielAvdar/ml-orchestrator)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-
 ## Features
 
-*   **Dataclass-based Component Definition:** Define your KFP components using Python dataclasses, making component definitions more readable and maintainable.
-*   **Automatic Input/Output Handling:**  The package automatically handles the input and output definitions for your components based on the dataclass structure.
-*   **Simplified Pipeline Construction:**  Easily integrate your dataclass-defined components into KFP pipelines.
+* **Dataclass-Driven Component Definition:** Define component logic using Python dataclasses, seamlessly translating
+  them into Kubeflow Pipelines (KFP) compatible functions and components.
+* **KFP Agnostic:** Empower developers to design and implement component logic as standard Python code, independent of
+  the KFP framework.
 
 ## Installation
 
@@ -24,42 +24,13 @@
 pip install ml-orchestrator
 ```
 
-If you want to use `ml-orchestrator` with Kubeflow Pipelines, install the `kfp` extra:
+Note: `ml-orchestrator` is designed to be lightweight and free of external dependencies, ensuring efficient runtime
+performance without additional overhead.
 
-```bash
-pip install ml-orchestrator[editor]
-```
+Note: `ml-orchestrator` does not require the `kfp` package to parse or create Kubeflow components.
+
+Note: To construct `kfp` pipelines and utilize the components, the `kfp` package is required.
 
 ## Usage
 
-### Defining a Component
-
-To define a KFP component, create a Python dataclass and decorate it appropriately (details will be added when the core logic is implemented).
-
-```python
-from dataclasses import dataclass
-# from ml_orchestrator import component  # Placeholder, replace with the actual import
-
-# @component # Placeholder, replace with the actual decorator
-# @dataclass
-# class MyComponent:
-#     input_data: str
-#     output_result: str
-
-#     def execute(self):
-#         # Component logic here
-#         self.output_result = f"Processed: {self.input_data}"
-#         return self.output_result
-```
-
-### Creating a Pipeline
-
-(Example of how to create a pipeline using the defined components will be added when the core logic is implemented.)
-
-## Contributing
-
-Contributions are welcome! Please refer to the contributing guidelines for more information.
-
-## License
-
-This project is licensed under the MIT License.
+please read the ![documentation](https://danielavdar.github.io/ml-orchestrator/)

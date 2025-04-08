@@ -7,14 +7,15 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 import os
 import sys
-
+from importlib.metadata import version
 
 sys.path.insert(0, os.path.abspath("../../"))
 # sys.path.insert(0, os.path.abspath("./"))  # in conf.py
 
-
 project = "ml-orchestrator"
-copyright = "2025, DanielAvdar"
+version = version(project)
+release = version
+copyright = "2025, DanielAvdar"  # noqa
 author = "DanielAvdar"
 
 # -- General configuration ---------------------------------------------------
@@ -26,15 +27,15 @@ extensions = [
     "sphinx.ext.viewcode",  # Add links to source code
     "sphinx.ext.githubpages",  # If deploying to GitHub Pages
     "sphinx.ext.autodoc",
-    'sphinx.ext.doctest',
-
+    "sphinx.ext.doctest",
+    "sphinx.ext.intersphinx",
 ]
 
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 html_theme = "sphinx_rtd_theme"
-
+master_doc = "index"
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 

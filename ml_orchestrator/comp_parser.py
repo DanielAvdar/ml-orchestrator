@@ -54,7 +54,7 @@ class ComponentParser(FunctionParser):
             return cls._create_decorator(component.env)
         return cls._create_decorator(component.env())
 
-    def create_kfp_str(self, component: _MetaComponent) -> str:  # type: ignore
+    def _create_kfp_str(self, component: _MetaComponent) -> str:  # type: ignore
         """
         Generates a serialized Kubeflow Pipeline (KFP) component string.
 
@@ -64,7 +64,7 @@ class ComponentParser(FunctionParser):
         Returns:
             str: A string representation of the KFP component, including decorators.
         """
-        function_str = super().create_kfp_str(component)  # type: ignore
+        function_str = super()._create_kfp_str(component)  # type: ignore
         if self.only_function:
             return function_str
 
@@ -74,7 +74,7 @@ class ComponentParser(FunctionParser):
         kfp_component_str = kfp_component_str.replace("\t", "    ")
         return kfp_component_str + "\n"
 
-    def write_to_file(self, filename: str, file_content: str) -> None:
+    def _write_to_file(self, filename: str, file_content: str) -> None:
         """
         Writes component string content to a file, including additional imports.
 
@@ -87,4 +87,4 @@ class ComponentParser(FunctionParser):
         """
         for imp in self.add_imports:
             file_content = f"{imp}\n{file_content}"
-        return super().write_to_file(filename, file_content)
+        return super()._write_to_file(filename, file_content)
