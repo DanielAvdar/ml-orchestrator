@@ -3,21 +3,21 @@
 Usage Guide
 ===========
 
-This guide will walk you through using the **ml-orchestrator** package in your own projects.
+This guide provides a comprehensive walkthrough for utilizing the **ml-orchestrator** package within your projects.
 
 Installation
 ------------
-Install the required dependencies using `Poetry`:
+To install the package, use `Poetry` with the following command:
 
 .. code-block:: bash
 
    pip install ml-orchestrator
 
-ml-orchestrator by itself has no dependencies.
+The **ml-orchestrator** package has no external dependencies by default.
 
 Quick Start
 -----------
-Here's an example to set up and define a simple pipeline component:
+Below is an example demonstrating how to set up and define a simple pipeline component:
 
 .. code-block:: python
 
@@ -36,12 +36,10 @@ Here's an example to set up and define a simple pipeline component:
         model: Output[Model]
         param_1: str = "default_value"
 
-
         def execute(self):
-            print("Executing my component!")
+            print("Executing MyComponent pipeline step...")
 
     # main.py
-
 
     # from example import MyComponent
     comp_list = [
@@ -50,7 +48,7 @@ Here's an example to set up and define a simple pipeline component:
     parser = FunctionParser()
     parser.parse_components_to_file(comp_list, "kfp_functions.py")
 
-will produce a file named kfp_functions.py as follows:
+The above code generates a file named `kfp_functions.py`, which contains the following definitions:
 
 .. code-block:: python
 
@@ -78,6 +76,8 @@ will produce a file named kfp_functions.py as follows:
 Advanced Example
 ----------------
 
+Below is an advanced example that introduces a training and re-training pipeline:
+
 .. code-block:: python
 
     # example.py
@@ -90,18 +90,17 @@ Advanced Example
 
     class DummyModel:
         def save(self, path):
-            # Dummy save method
+            # Mock save method
             pass
 
         @classmethod
         def load(cls, path):
-            # Dummy load method
+            # Mock load method
             return cls()
 
         def train(self, dataset_path, params):
-            # Dummy train method
+            # Mock train method
             pass
-
 
 
     @dataclass
@@ -111,28 +110,26 @@ Advanced Example
         param_1: int
         param_2: float
 
-
         def execute(self):
             model = self.init_model()
-            params = dict(
-                param_1=self.param_1,
-                param_2=self.param_2,
-            )
+            training_params = {
+                "param_1": self.param_1,
+                "param_2": self.param_2,
+            }
 
-            model.train(self.dataset.path, params)
+            model.train(self.dataset.path, training_params)
             model.save(self.model.path)
 
         def init_model(self):
-            # Initialize the model here
+            # Initialize and return a DummyModel instance
             return DummyModel()
 
     @dataclass
     class ReTrainModel(TrainModel):
         trained_model: Input[Model]
 
-
         def init_model(self):
-            # Initialize the model here
+            # Load and return an existing DummyModel instance
             return DummyModel.load(self.trained_model.path)
     # main.py
 
@@ -144,7 +141,7 @@ Advanced Example
     parser = FunctionParser()
     parser.parse_components_to_file(comp_list, "kfp_functions.py")
 
-will produce a file named kfp_functions.py as follows:
+The above script generates a file named `kfp_functions.py`, which includes the following functions:
 
 .. code-block:: python
 
