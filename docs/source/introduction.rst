@@ -3,37 +3,34 @@
 Introduction
 ============
 
-The **ml-orchestrator** project is designed to facilitate the management of modular components in Kubeflow Pipelines (KFP),
-especially for Machine Learning (ML) workflows.
-For installation and getting started, please proceed to :doc:`usage`.
+The **ml-orchestrator** project is designed to streamline the management of modular components in Kubeflow Pipelines (KFP),
+with a primary focus on Machine Learning (ML) workflows. For installation instructions and getting started, please refer to :doc:`usage`.
 
 Concepts
 --------
 
-The core concept of **ml-orchestrator** is to provide a framework for creating, managing, maintaining kubeflow components.
-it allows you to define components logic as dataclasses, which can be easily serialized into KFP strings.
-This approach allows for a more structured and maintainable way to define components, making it easier to manage dependencies and configurations.
+The core concept of **ml-orchestrator** is to provide a framework designed for creating, managing, and maintaining Kubeflow components.
+It enables you to define component logic using dataclasses, which can easily be serialized into KFP strings.
+This structured approach simplifies component management, enhances maintainability, and facilitates dependency and configuration handling.
 
-.. list-table:: Key differences from original KFP components definition
+.. list-table:: Key differences from the original KFP components definition
    :header-rows: 1
 
    * - Aspect
      - Original KFP
      - **ml-orchestrator**
    * - **Component Logic**
-     - Logic is defined as part of the function.
-     - Logic is defined as part of the dataclass.
+     - Defined as part of the function.
+     - Defined within a dataclass.
    * - **Import & Dependencies**
-     - The entire code is inside the function.
-     - Assumes that the code will be available from the environment.
+     - Entire code resides inside the function.
+     - Assumes code is available from the environment.
    * - **Testability**
-     - Hard to test, somtimes requires a full pipeline run.
-     - Testable as a regular Python code via `unittest` or `pytest`.
-   * - **Comitment to KFP**
-     - The code is tightly coupled with KFP.
-     - 100% agnostic to KFP.
+     - Difficult to test; often requires a full pipeline run.
+     - Testable using standard Python tools like `unittest` or `pytest`.
+   * - **Commitment to KFP**
+     - Code is tightly coupled with KFP.
+     - Completely agnostic to KFP.
    * - **Flexibility**
-     - functions based logic:
-        non-inheritable, duplicate code & parameters.
-     - dataclass based logic:
-        inheritable, reusable code & parameters.
+     - Function-based logic: non-inheritable, repetitive code and parameters.
+     - Dataclass-based logic: inheritable, reusable code and parameters.
