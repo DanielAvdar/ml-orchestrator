@@ -33,4 +33,4 @@ Note: To construct `kfp` pipelines and utilize the components, the `kfp` package
 
 ## Usage
 
-please read the ![documentation](https://danielavdar.github.io/ml-orchestrator/)
+please read the [documentation](https://ml-orchestrator.readthedocs.io/en/latest/)
