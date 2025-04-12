@@ -10,7 +10,7 @@
 [![Code Checks](https://github.com/DanielAvdar/ml-orchestrator/actions/workflows/code-checks.yml/badge.svg)](https://github.com/DanielAvdar/ml-orchestrator/actions/workflows/code-checks.yml)
 [![codecov](https://codecov.io/gh/DanielAvdar/ml-orchestrator/graph/badge.svg?token=N0V9KANTG2)](https://codecov.io/gh/DanielAvdar/ml-orchestrator)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-
+![Last Commit](https://img.shields.io/github/last-commit/DanielAvdar/ml-orchestrator/main)
 ## Features
 
 * **Dataclass-Driven Component Definition:** Define component logic using Python dataclasses, seamlessly translating
