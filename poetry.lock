@@ -689,13 +689,13 @@ i18n = ["Babel (>=2.7)"]
 
 [[package]]
 name = "kfp"
-version = "2.12.1"
+version = "2.12.2"
 description = "Kubeflow Pipelines SDK"
 optional = false
 python-versions = ">=3.9.0"
 groups = ["main", "dev"]
 files = [
-    {file = "kfp-2.12.1.tar.gz", hash = "sha256:702e2fa62ef529e426b874666a2b3292edaaa9962da0f44defa3f1077c77efed"},
+    {file = "kfp-2.12.2.tar.gz", hash = "sha256:63a9bd900672346fcf0fa24a081d4f4f15eeab03e31ae505443015ae1bb6ee09"},
 ]
 
 [package.dependencies]
