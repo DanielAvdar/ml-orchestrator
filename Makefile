@@ -12,6 +12,9 @@ test:
 coverage:
 	poetry run pytest --cov=ml_orchestrator --cov-report=xml --junitxml=junit.xml -o junit_family=legacy
 
+cov:
+	poetry run pytest --cov=ml_orchestrator --cov-report=term-missing
+
 check:
 	poetry run pre-commit run --all-files
 mypy:
