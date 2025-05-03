@@ -37,7 +37,6 @@ class ProtocolCompSuite(abc.ABC):
             A component that implements the ComponentProtocol
 
         """
-        ...
 
     def test_flows_protocol(self, comp_fixture: ComponentProtocol) -> None:
         """Test that the component implements the ComponentProtocol.
