@@ -7,13 +7,14 @@ This guide provides a comprehensive walkthrough for utilizing the **ml-orchestra
 
 Installation
 ------------
-To install the package, use `Poetry` with the following command:
+
 
 .. code-block:: bash
 
-   pip install ml-orchestrator
+   pip install ml-orchestrator[editor]
 
-The **ml-orchestrator** package has no external dependencies by default.
+.. note::
+   The core **ml-orchestrator** package is intentionally designed to be dependency-free. This architectural decision ensures that components created with ml-orchestrator won't have unnecessary liabilities or dependencies, making them more portable and easier to maintain in production environments.
 
 Quick Start
 -----------
