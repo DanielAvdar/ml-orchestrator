@@ -1,3 +1,10 @@
+"""Base parser module for Kubeflow Pipeline component function generation.
+
+This module provides the foundation for parsing ML components into Kubeflow Pipeline
+compatible functions, handling dataclass field extraction, parameter formatting,
+and function generation.
+"""
+
 import dataclasses
 from typing import Any, Dict, List, Tuple, Type, Union
 

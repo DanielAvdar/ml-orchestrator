@@ -1,3 +1,9 @@
+"""ML Orchestrator package for machine learning pipeline components management.
+
+This package provides tools for creating, parsing, and managing machine learning
+pipeline components with a focus on Kubeflow Pipelines integration.
+"""
+
 from importlib.metadata import version
 
 from .comp_parser import ComponentParser

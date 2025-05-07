@@ -1,3 +1,10 @@
+"""Artifacts package for ML pipeline component inputs and outputs.
+
+This package provides classes and types for representing and managing
+different kinds of machine learning artifacts such as models, datasets,
+and metrics, with support for JSON serialization.
+"""
+
 from typing import Annotated, TypeVar
 
 from ml_orchestrator.artifacts.artifact import Artifact

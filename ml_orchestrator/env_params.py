@@ -1,12 +1,20 @@
+"""Module for defining environment parameters for ML pipeline components.
+
+This module provides the EnvironmentParams dataclass used to configure
+the environment for Kubeflow Pipeline components, including Docker images
+and package dependencies.
+"""
+
 import dataclasses
 from typing import Any, Dict, List, Tuple
 
 
 @dataclasses.dataclass(unsafe_hash=True)
 class EnvironmentParams:
-    """
-    A dataclass for defining the configuration parameters used to set up the environment
-    for pipeline components, including Docker images, package installations, and Kubeflow settings.
+    """A dataclass for defining the configuration parameters used to set up the environment.
+
+    This class defines parameters for pipeline components, including Docker images,
+    package installations, and Kubeflow settings.
 
     Attributes:
         base_image (str): The base Docker image to use for building and running pipeline components.
@@ -15,6 +23,7 @@ class EnvironmentParams:
         pip_index_urls (List[str]): A list of custom pip index URLs that can be used to search for Python packages.
         install_kfp_package (bool): Indicates whether the Kubeflow Pipelines (KFP) package should be installed.
         kfp_package_path (str): The path or URL for the Kubeflow Pipelines (KFP) package to be used for installation.
+
     """
 
     base_image: str = None
@@ -26,21 +35,22 @@ class EnvironmentParams:
 
     @classmethod
     def comp_fields(cls) -> Tuple[dataclasses.Field, ...]:
-        """
-        Retrieve all the fields defined in the `EnvironmentParams` dataclass.
+        """Retrieve all the fields defined in the `EnvironmentParams` dataclass.
 
         Returns:
             Tuple[dataclasses.Field, ...]: A tuple of field definitions.
+
         """
         return dataclasses.fields(cls)
 
     def comp_vars(self) -> Dict[dataclasses.Field, Any]:
-        """
-        Retrieve a mapping of each dataclass field to its corresponding value
-        for the current instance.
+        """Retrieve a mapping of each dataclass field to its corresponding value.
+
+        Maps each field to its current value for the current instance.
 
         Returns:
             Dict[dataclasses.Field, Any]: A dictionary mapping fields to their current values.
+
         """
         fields = self.comp_fields()
         ins_vars = dict()
