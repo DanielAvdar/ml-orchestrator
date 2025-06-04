@@ -1,9 +1,12 @@
-[tool.poetry]
+[project]
 name = "ml-orchestrator"
-version = "0.1.0"
+dynamic = ["version"]
 description = "kubeflow extension"
-authors = ["DanielAvdar <66269169+DanielAvdar@users.noreply.github.com>"]
-license = "MIT"
+authors = [
+    { name = "DanielAvdar", email = "66269169+DanielAvdar@users.noreply.github.com" },
+]
+license = { text = "MIT" }
+readme = "README.md"
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
@@ -15,42 +18,51 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
     "Intended Audience :: Developers",
 ]
-readme = "README.md"
-packages = [
-    { include = "ml_orchestrator", from = "." },
+requires-python = ">=3.9,<3.14"
+
+keywords = [
+    "python",
+    "machine learning",
+    "kubeflow"
+]
+dependencies = [
+    "kfp>=2.7.0",
 ]
 
-[tool.poetry.dependencies]
-python = ">=3.9,<=3.13"
-kfp = { version = ">=2.7.0", optional = true }
-
-[tool.poetry.dev-dependencies]
-pytest = ">=7.1.2"
-hypothesis = ">=6.23.3"
-pre-commit = ">=2.20.0"
-pytest-cov = ">=4.0.0"
-mypy = ">=0.991"
-ruff = ">=0.3.1"
-kfp  = ">=2.7.0"
-#sybil[pytest] ="*"
-sybil = { version = ">=1.4.0", extras = ["pytest"] }
-
-[tool.poetry.extras]
-editor = ["kfp"]
-
-
-[tool.poetry.group.docs.dependencies]
-#sphinx = ">=7.0.0"
-sphinx = [
-    { version = ">=8.2.0", markers = "python_version >= '3.11'" },
-    { version = ">=7.0.0", markers = "python_version < '3.11'" }
+[dependency-groups]
+dev = [
+    "pytest>=7.1.2",
+    "hypothesis>=6.23.3",
+    "pre-commit>=2.20.0",
+    "pytest-cov>=4.0.0",
+    "mypy>=0.991",
+    "ruff>=0.3.1",
+    "kfp>=2.7.0",
+    "sybil[pytest]>=1.4.0",
+]
+docs = [
+    "sphinx>=8.2.0; python_version >= '3.11'",
+    "sphinx>=7.0.0; python_version < '3.11'",
+    "sphinx-rtd-theme>=3.0.2",
 ]
 
-sphinx-rtd-theme = "^3.0.2"
+[tool.hatch.build.targets.sdist]
+only-include = ["ml_orchestrator", ]
+source = "."
+
+[tool.hatch.build.targets.wheel]
+only-include = ["ml_orchestrator", ]
+source = "."
+
+[project.optional-dependencies]
+editor = ["kfp>=2.7.0"]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling", "uv-dynamic-versioning"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "uv-dynamic-versioning"
 
 [tool.ruff]
 line-length = 120
