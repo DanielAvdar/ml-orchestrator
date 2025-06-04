@@ -15,6 +15,7 @@ Installation
 
 .. note::
    The core **ml-orchestrator** package is intentionally designed to be dependency-free. This architectural decision ensures that components created with ml-orchestrator won't have unnecessary liabilities or dependencies, making them more portable and easier to maintain in production environments.
+   The `[editor]` part of the installation command is optional and installs extra dependencies that can enhance the development experience in some IDEs, providing features like autocompletion and improved type checking for the component specifications. The core functionality of creating and parsing components does not require these extra dependencies.
 
 Quick Start
 -----------
@@ -42,7 +43,7 @@ Below is an example demonstrating how to set up and define a simple pipeline com
 
     # main.py
 
-    # from example import MyComponent
+    from .example import MyComponent # Assuming example.py is in the same directory
     comp_list = [
         MyComponent,
     ]
@@ -85,7 +86,6 @@ Below is an advanced example that introduces a training and re-training pipeline
 
     from dataclasses import dataclass
 
-    from ml_orchestrator import FunctionParser
     from ml_orchestrator.artifacts import Dataset, Input, Output, Model
 
 
@@ -134,7 +134,8 @@ Below is an advanced example that introduces a training and re-training pipeline
             return DummyModel.load(self.trained_model.path)
     # main.py
 
-    # from example import TrainModel, ReTrainModel
+    from ml_orchestrator import FunctionParser # Added for clarity
+    from .example import TrainModel, ReTrainModel # Assuming example.py is in the same directory
     comp_list = [
         TrainModel,
         ReTrainModel,
@@ -143,6 +144,9 @@ Below is an advanced example that introduces a training and re-training pipeline
     parser.parse_components_to_file(comp_list, "kfp_functions.py")
 
 The above script generates a file named `kfp_functions.py`, which includes the following functions:
+
+.. note::
+    To run this example, save the two code blocks above as `example.py` and `main.py` in the same directory. Then, execute `python main.py` from that directory. This will generate the `kfp_functions.py` file.
 
 .. code-block:: python
 
