@@ -117,3 +117,6 @@ venv.bak/
 
 # PyCharm
 .idea/
+
+# Generated test files
+kfp_functions.py
