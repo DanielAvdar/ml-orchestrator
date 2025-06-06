@@ -26,7 +26,6 @@ extensions = [
     "sphinx.ext.napoleon",  # Support for Google and NumPy style docstrings
     "sphinx.ext.viewcode",  # Add links to source code
     "sphinx.ext.githubpages",  # If deploying to GitHub Pages
-    "sphinx.ext.autodoc",
     "sphinx.ext.doctest",
     "sphinx.ext.intersphinx",
 ]
@@ -34,7 +33,20 @@ extensions = [
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
-html_theme = "sphinx_rtd_theme"
+html_theme = "pydata_sphinx_theme"
+html_theme_options = {
+    "github_url": "https://github.com/DanielAvdar/ml-orchestrator",
+    "use_edit_page_button": True,
+    "show_toc_level": 2,
+    "navbar_align": "left",
+}
+
+html_context = {
+    "github_user": "DanielAvdar",
+    "github_repo": "ml-orchestrator",
+    "github_version": "main",
+    "doc_path": "docs/source",
+}
 master_doc = "index"
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
