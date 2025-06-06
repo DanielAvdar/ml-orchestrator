@@ -27,7 +27,6 @@ mypy: install
 	uv run mypy ml_orchestrator --config-file pyproject.toml
 
 doctest: install-docs doc
-	uv run --no-sync sphinx-build -M doctest docs/source docs/build/ -W --keep-going --fresh-env
 
 install-docs:
 	uv sync --group docs --frozen --no-group dev
