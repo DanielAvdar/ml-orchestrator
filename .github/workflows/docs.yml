@@ -1,7 +1,6 @@
-name: Publish docs
+name: Doc-Test
 on:
-  release:
-    types: [ published ]
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -16,19 +15,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - run: pipx install poetry
-      - run: poetry check
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v6
         with:
-          python-version: '3.11'
-          cache: poetry
-
-      - run: make
-      - run: make doc
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/build
-          keep_files: true
+          enable-cache: true
+      - run: uv python install 3.12
+      - run: make doctest

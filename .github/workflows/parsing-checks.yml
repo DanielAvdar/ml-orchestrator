@@ -10,11 +10,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - run: pipx install poetry
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v6
         with:
-          python-version: ${{ matrix.python-version }}
-          cache: poetry
+          enable-cache: true
 
 
       - run: make
@@ -36,13 +34,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - run: pipx install poetry
-      - run: poetry check
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v6
         with:
-          python-version: '3.11'
+          enable-cache: true
 
-      - run: poetry build
+      - run: uv build
       - run: pip install dist/*.whl
       - run: python -m dummy_components.check_imports
     continue-on-error: true
