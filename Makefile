@@ -32,6 +32,7 @@ install-docs:
 	uv sync --group docs --frozen --no-group dev
 
 doc:
+	uv run --no-sync sphinx-build -M doctest docs/source docs/build/ -W --keep-going --fresh-env
 	uv run --no-sync sphinx-build -M html docs/source docs/build/ -W --keep-going --fresh-env
 
 check-all: check test mypy doc
